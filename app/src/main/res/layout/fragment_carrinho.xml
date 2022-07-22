@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.carrinho.CarrinhoFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/orange"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:collapseIcon="@drawable/ic_baseline_arrow_back_24"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="36dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_begin="@dimen/guidelines_dimens"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/guidelines_dimens"
+                android:layout_marginLeft="@dimen/guidelines_dimens"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/guidelines_dimens"
+                android:layout_marginRight="@dimen/guidelines_dimens"
+                android:layout_marginEnd="@dimen/guidelines_dimens"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toTopOf="parent"
+
+                />
+
+            <TextView
+                android:id="@+id/txtSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="32dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <TextView
+                android:id="@+id/txtSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14kz:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="32dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_blue_dark_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <TextView
+                android:id="@+id/txtTax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxa de Entrega:"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtSub"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+            <TextView
+                android:id="@+id/txtTaxaEntrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500 Akz"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/text_blue_dark_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtSubtotal"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <View
+                android:id="@+id/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/gray_color"
+                app:layout_constraintTop_toBottomOf="@+id/txtTax"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                />
+
+            <TextView
+                android:id="@+id/txtTot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/separator_view"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14kz:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_blue_dark_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/separator_view"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <android.widget.Button
+                android:id="@+id/btnCheckout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Checkout"
+                android:textColor="@color/white"
+                android:background="@drawable/button_bkg"
+                android:fontFamily="@font/poppins_bold"
+                app:layout_constraintTop_toBottomOf="@+id/txtTot"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                />
+
+            <TextView
+                android:id="@+id/text_carrinho"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

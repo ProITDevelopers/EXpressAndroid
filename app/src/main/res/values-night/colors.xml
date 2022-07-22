@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimaryDark">@color/orange</color>
+    <color name="colorPrimary">@color/orange</color>
+    <color name="colorAccent">@color/orange</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#f07846</color>
+    <color name="orange_light">#80f7ded2</color>
+    <color name="blue">#2e6179</color>
+    <color name="blue_dark">#1d3d4c</color>
+    <color name="shimmer_color">#e7e7e7</color>
+    <color name="default_background_color">@null</color>
+    <color name="box_border_color">@color/default_night_color</color>
+    <color name="location_box_color">#fff1ea</color>
+    <color name="text_blue_normal_color">@color/white</color>
+    <color name="text_blue_dark_color">@color/white</color>
+    <color name="text_title_cardgrid_color">@color/orange</color>
+    <color name="gray_color">#40B9B8B8</color>
+
+    <color name="bottomnavigation_bkg_color">#121212</color>
+    <color name="navbottom_item_checked_color">@color/orange</color>
+    <color name="navbottom_item_not_checked_color">@color/white</color>
+
+    <color name="default_night_color">#444444</color>
+    <color name="button_color">@color/orange</color>
+    <color name="button_cart_color">@color/white</color>
+
+    <color name="linear_slide_active_dot">@color/orange</color>
+    <color name="linear_slide_non_active_dot">@color/blue</color>
+    <color name="rating_star_color">@color/white</color>
+    <color name="ic_delete_item_color">@color/orange</color>
+    <color name="btn_add_remove_color">@color/orange</color>
+    <color name="text_init_time_color">#adc9d6</color>
+    <color name="text_final_time_color">#facab5</color>
+    <color name="card_detalhe_color">@null</color>
+    <color name="icon_perfil_settings_color">@color/orange</color>
+</resources>

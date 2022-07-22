@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.expresskotlin.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home">
+
+        <action android:id="@+id/action_home_to_categoriaEstabFragment"
+            app:destination="@id/categoriaEstabFragment"/>
+
+        <action android:id="@+id/action_home_to_estabFragment"
+            app:destination="@id/estabFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/categoriaEstabFragment"
+        android:name="com.example.expresskotlin.ui.categoria_estab.CategoriaEstabFragment"
+        tools:layout="@layout/fragment_categoria_estab" >
+
+        <action android:id="@+id/action_categoriaEstabFragment_to_homeFragment"
+            app:destination="@+id/navigation_home"
+            app:popUpTo="@+id/navigation_home"
+            />
+
+        <action android:id="@+id/action_categoriaEstabFragment_to_estabFragment"
+            app:destination="@+id/estabFragment"
+            app:popUpTo="@+id/categoriaEstabFragment"
+            />
+<!--        app:popUpToInclusive="true"-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/estabFragment"
+        android:name="com.example.expresskotlin.ui.categoria_estab.EstabelecimentoFragment"
+        tools:layout="@layout/fragment_estabelecimento" >
+
+        <action android:id="@+id/action_estabFragment_to_produtosFragment"
+            app:destination="@+id/produtosFragment"
+            app:popUpTo="@+id/estabFragment"
+            />
+
+        <action android:id="@+id/action_estabFragment_to_homeFragment"
+            app:destination="@+id/navigation_home"
+            app:popUpTo="@+id/navigation_home"
+            />
+        <!--        app:popUpToInclusive="true"-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/produtosFragment"
+        android:name="com.example.expresskotlin.ui.produtos.ProdutosFragment"
+        tools:layout="@layout/fragment_produtos" >
+
+        <action android:id="@+id/action_produtosFragment_to_estabFragment"
+            app:destination="@+id/estabFragment"
+            app:popUpTo="@+id/estabFragment"
+            />
+
+        <action android:id="@+id/action_produtosFragment_to_produtoDetalheFragment"
+            app:destination="@+id/produtoDetalheFragment"
+            app:popUpTo="@+id/produtosFragment"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/produtoDetalheFragment"
+        android:name="com.example.expresskotlin.ui.produtos.ProdutoDetalheFragment"
+        tools:layout="@layout/fragment_produto_detalhe" >
+
+        <action android:id="@+id/action_produtoDetalheFragment_to_produtosFragment"
+            app:destination="@+id/produtosFragment"
+            app:popUpTo="@+id/produtosFragment"
+            />
+        <!--        app:popUpToInclusive="true"-->
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_mapa"
+        android:name="com.example.expresskotlin.ui.mapa.MapaFragment"
+        android:label="@string/title_mapa"
+        tools:layout="@layout/fragment_mapa" />
+
+    <fragment
+        android:id="@+id/navigation_carrinho"
+        android:name="com.example.expresskotlin.ui.carrinho.CarrinhoFragment"
+        android:label="@string/title_carrinho"
+        tools:layout="@layout/fragment_carrinho" />
+
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.expresskotlin.ui.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil">
+
+        <action android:id="@+id/action_perfil_to_editarPerfilFragment"
+            app:destination="@id/editarPerfilFragment"/>
+
+        <action android:id="@+id/action_perfil_to_atualizarPassFragment"
+            app:destination="@id/atualizarPassFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editarPerfilFragment"
+        android:name="com.example.expresskotlin.ui.perfil.EditarPerfilFragment"
+        tools:layout="@layout/fragment_editar_perfil">
+
+        <action android:id="@+id/action_editarPerfilFragment_to_perfilFragment"
+            app:destination="@+id/navigation_perfil"
+            app:popUpTo="@+id/navigation_perfil"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/atualizarPassFragment"
+        android:name="com.example.expresskotlin.login_regist_senha.AtualizarPassFragment"
+        tools:layout="@layout/fragment_atualizar_pass">
+
+        <action android:id="@+id/action_atualizarPassFragment_to_perfilFragment"
+            app:destination="@+id/navigation_perfil"
+            app:popUpTo="@+id/navigation_perfil"
+            />
+
+    </fragment>
+</navigation>

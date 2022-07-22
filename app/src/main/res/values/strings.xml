@@ -1,0 +1,60 @@
+<resources>
+<!--    <string name="app_name">EXpressKotlin</string>-->
+    <string name="app_name">EXpress</string>
+    <string name="title_home">Home</string>
+    <string name="title_mapa">Mapa</string>
+    <string name="title_carrinho">Carrinho</string>
+    <string name="title_perfil">Perfil</string>
+    <string name="title_editar_perfil">Atualizar Perfil</string>
+
+    <string name="powered_by_pro_it_consulting">© Powered by Pro-IT Consulting</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cadastro_text_login">Adicione os seus dados \npara fazer o login</string>
+    <string name="cadastro_text_registro">Adicione os seus dados \npara fazer o registro</string>
+    <string name="cadastro_tab_registrar">REGISTRAR</string>
+    <string name="cadastro_tab_login">LOGIN</string>
+    <string name="email_ou_telefone_dots">Email ou Telefone:</string>
+    <string name="email_ou_telefone">Email ou Telefone</string>
+    <string name="palavra_passe_dots">Palavra-Passe:</string>
+    <string name="palavra_passe">Palavra-Passe</string>
+    <string name="esqueceu_a_palavra_passe">Esqueceu a Palavra-Passe?</string>
+    <string name="facebook">Facebook</string>
+    <string name="gmail">Gmail</string>
+    <string name="nao_tem_conta_registrar">Não tem uma Conta? Registrar </string>
+    <string name="user_email_hint">johndoe@gmail.com</string>
+    <string name="user_pass_hint">*******</string>
+    <string name="nome_completo_dots">Nome Completo:</string>
+    <string name="nome_completo">Nome Completo</string>
+    <string name="user_name_hint">John Doe</string>
+    <string name="telefone_dots">Telefone:</string>
+    <string name="telefone">Telefone</string>
+    <string name="user_phone_hint">934947164</string>
+    <string name="termos_e_condicoes"><![CDATA[Eu concordo com os Termos & Condições]]></string>
+    <string name="ja_possui_conta_login">Já possui uma Conta? Login</string>
+    <string name="dialog_title_licenses">Open Source Licenses</string>
+    <string name="link">Website: gilsonvicente.com</string>
+    <string name="recuperar_palavra_passe">Recuperar Palavra-Passe</string>
+    <string name="por_favor_inserir_telefone">Por favor introduza o seu número de \ntelefone para receber o código de confirmação</string>
+    <string name="ok">OK</string>
+    <string name="numero_de_telefone_dots">Número de Telefone:</string>
+    <string name="numero_de_telefone">Número de Telefone</string>
+    <string name="foi_enviado_codigo_otp">Foi enviado um código \nOTP no seu telefone</string>
+    <string name="por_favor_cheque">Por favor cheque o seu telefone número 923*****20 \npara recuperar a sua palavra-passe</string>
+    <string name="nao_recebeu_clique_aqui">Não recebeu? Clique aqui</string>
+    <string name="nova_palavra_passe_dots">Nova Palavra-Passe:</string>
+    <string name="nova_palavra_passe">Nova Palavra-Passe</string>
+    <string name="por_favor_nova_palavra_passe">Por favor introduza \na sua nova palavra-passe</string>
+    <string name="confirmar_palavra_passe">Confirmar Palavra-Passe</string>
+    <string name="my_address">Rua ABC, Bairro 123, Luanda, Angola</string>
+    <string name="feedback_sucesso">Está tudo certo meu chapa!</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
+    <string name="email_dots">Email:</string>
+    <string name="email">Email</string>
+    <string name="data_nascimento_dots">Data de Nascimento:</string>
+    <string name="data_nascimento">Data de Nascimento</string>
+    <string name="palavra_passe_antiga_dots">Palavra-Passe Antiga:</string>
+    <string name="palavra_passe_antiga">Palavra-Passe Antiga</string>
+
+    <string name="msg_ligar_gps">Para continuar, ative a localização do dispositivo, a qual utiliza o serviço de localização da Google.</string>
+</resources>

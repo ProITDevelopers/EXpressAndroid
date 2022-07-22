@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:id="@+id/cardView"
+       >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                >
+
+                <ImageView
+                    android:id="@+id/imgProd"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmerFrameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <include
+                        layout="@layout/shimmer_image_loading_layout"/>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.38"
+                android:layout_margin="5dp"
+                >
+
+                <TextView
+                    android:id="@+id/txtProdTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_title_cardgrid_color"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+
+                <TextView
+                    android:id="@+id/txtProdPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/text_blue_dark_color"
+                    android:fontFamily="@font/poppins_regular"/>
+
+                <TextView
+                    android:id="@+id/txtProdDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="@string/lorem_ipsum"
+                    android:textColor="@color/text_blue_dark_color"
+                    android:fontFamily="@font/poppins_regular"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.32"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:id="@+id/linearProdCount"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1"
+                    android:layout_marginBottom="2dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/imgRemoveItem"
+                        android:src="@drawable/ic_baseline_remove_circle_24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/btn_add_remove_color"
+                        android:layout_weight="0.25"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                    <TextView
+                        android:id="@+id/txtProdQuantity"
+                        android:text="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/text_blue_dark_color"
+                        android:fontFamily="@font/poppins_regular"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:background="@color/orange_light"
+                        />
+
+                    <ImageView
+                        android:id="@+id/imgAddItem"
+                        android:src="@drawable/ic_baseline_add_circle_24"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:tint="@color/btn_add_remove_color"
+                        android:layout_weight="0.25"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtAddItemCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="Adicionar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/text_blue_normal_color"
+                    android:padding="8dp"
+                    android:drawableTint="@color/rating_star_color"
+                    android:drawableLeft="@drawable/ic_baseline_add_shopping_cart_24"
+                    android:drawablePadding="8dp"
+                    android:background="@drawable/button_cart_transparent_bkg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    />
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>
