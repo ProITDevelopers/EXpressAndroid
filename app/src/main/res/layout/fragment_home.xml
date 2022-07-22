@@ -103,7 +103,7 @@
                         android:id="@+id/txtMyLocation"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/my_address"
+                        android:visibility="invisible"
                         android:textColor="#4d7d93"
                         android:gravity="center_vertical"
                         android:maxLines="1"

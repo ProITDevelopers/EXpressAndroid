@@ -64,7 +64,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
     private var mLocationPermissionGranted = false
 
-    private val permissionsArray = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.ACCESS_COARSE_LOCATION)
+    private val permissionsArray = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION)
 
 
     override fun onCreateView(
@@ -293,9 +294,9 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
 
     private fun getMyAddress(location:LatLng) : String {
-        var address:String=""
+        var address =""
         try {
-            val geo : Geocoder = Geocoder(context, Locale.getDefault())
+            val geo = Geocoder(context, Locale.getDefault())
             var addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
             if (addresses.isEmpty()) {
                 Log.d("TAG_Mapa", "Waiting for Location")
@@ -346,7 +347,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
 
         try {
-            fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper());
+            fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper())
         } catch (e:Exception) {
             e.printStackTrace();
         }
