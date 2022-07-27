@@ -39,5 +39,16 @@
     <color name="text_final_time_color">#facab5</color>
     <color name="card_detalhe_color">#f1dfd8</color>
     <color name="icon_perfil_settings_color">@color/blue_dark</color>
+    <color name="search_img_bkg_color">@null</color>
+    <color name="search_arrowback_color">@color/blue</color>
+    <color name="search_box_color">#fcfaf9</color>
+    <color name="top_filter_bkg_color">@color/white</color>
+    <color name="text_search_categ_color">#facab5</color>
+    <color name="tablayout_color">#f7ded2</color>
+    <color name="tab_selected_text_color">#2e6179</color>
+    <color name="tab_text_color">#adc9d6</color>
+    <color name="tab_icon_selected_color">#2e6179</color>
+    <color name="tab_icon_unselected_color">#adc9d6</color>
+    <color name="tab_indicator_color">#2e6179</color>
 
 </resources>

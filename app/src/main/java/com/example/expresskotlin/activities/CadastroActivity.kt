@@ -6,14 +6,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.expresskotlin.R
+import com.example.expresskotlin.adapters.viewpager.ViewPagerFragmentsAdapter
 import com.example.expresskotlin.databinding.ActivityCadastroBinding
-import com.google.android.material.tabs.TabLayout
-
-import com.example.expresskotlin.adapters.ViewPagerFragmentsAdapter
-
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.login_regist_senha.LoginFragment
 import com.example.expresskotlin.login_regist_senha.RegistroFragment
+import com.google.android.material.tabs.TabLayout
 
 class CadastroActivity : AppCompatActivity() {
 

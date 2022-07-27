@@ -28,21 +28,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.example.expresskotlin.R
-import com.example.expresskotlin.databinding.FragmentHomeBinding
-import com.example.expresskotlin.adapters.ViewPagerAdapterSlider
 import com.example.expresskotlin.adapters.home.HomeMainAdapter
+import com.example.expresskotlin.adapters.viewpager.ViewPagerAdapterSlider
+import com.example.expresskotlin.databinding.FragmentHomeBinding
+import com.example.expresskotlin.eventbus.SearchClick
 import com.example.expresskotlin.helpers.Common
-
 import com.example.expresskotlin.helpers.LoadData
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 import de.hdodenhof.circleimageview.CircleImageView
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class HomeFragment : Fragment() {
@@ -136,6 +134,10 @@ class HomeFragment : Fragment() {
         wormDotsIndicator = binding.wormDotsIndicator
 //        sliderDotspanel = binding.SliderDots;
         mRecyclerView = binding.recyclerView
+
+        imgSearch.setOnClickListener {
+            EventBus.getDefault().postSticky(SearchClick(true))
+        }
     }
 
     private fun setUpViews() {
@@ -259,7 +261,7 @@ class HomeFragment : Fragment() {
                     it.latitude, it.longitude));
 
                 txtMyLocation.text = getMyEndereco
-                txtMyLocation.visibility = View.VISIBLE
+//                txtMyLocation.visibility = View.VISIBLE
 
 
 

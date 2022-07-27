@@ -17,6 +17,22 @@
         <action android:id="@+id/action_home_to_estabFragment"
             app:destination="@id/estabFragment"/>
 
+        <action android:id="@+id/action_home_to_action_searchFragment"
+            app:destination="@id/searchFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.expresskotlin.ui.search.SearchFragment"
+        tools:layout="@layout/fragment_search" >
+
+        <action android:id="@+id/action_searchFragment_to_homeFragment"
+            app:destination="@+id/navigation_home"
+            app:popUpTo="@+id/navigation_home"
+            />
+
+
     </fragment>
 
     <fragment
@@ -105,6 +121,17 @@
 
         <action android:id="@+id/action_perfil_to_atualizarPassFragment"
             app:destination="@id/atualizarPassFragment"/>
+
+        <action android:id="@+id/action_perfil_to_myAddressFragment"
+            app:destination="@id/myAddressFragment"/>
+
+        <action android:id="@+id/action_perfil_to_meusPedidosFragment"
+            app:destination="@id/meusPedidosFragment"/>
+
+        <action android:id="@+id/action_perfil_to_carteiraFragment"
+            app:destination="@id/carteiraFragment"/>
+
+
     </fragment>
 
     <fragment
@@ -125,6 +152,42 @@
         tools:layout="@layout/fragment_atualizar_pass">
 
         <action android:id="@+id/action_atualizarPassFragment_to_perfilFragment"
+            app:destination="@+id/navigation_perfil"
+            app:popUpTo="@+id/navigation_perfil"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/myAddressFragment"
+        android:name="com.example.expresskotlin.ui.meus_enderecos.MeusEnderecosFragment"
+        tools:layout="@layout/fragment_meus_enderecos">
+
+        <action android:id="@+id/action_myAddressFragment_to_perfilFragment"
+            app:destination="@+id/navigation_perfil"
+            app:popUpTo="@+id/navigation_perfil"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/meusPedidosFragment"
+        android:name="com.example.expresskotlin.ui.meus_pedidos.MeusPedidosFragment"
+        tools:layout="@layout/fragment_meus_pedidos">
+
+        <action android:id="@+id/action_meusPedidosFragment_to_perfilFragment"
+            app:destination="@+id/navigation_perfil"
+            app:popUpTo="@+id/navigation_perfil"
+            />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/carteiraFragment"
+        android:name="com.example.expresskotlin.ui.carteira.CarteiraFragment"
+        tools:layout="@layout/fragment_carteira">
+
+        <action android:id="@+id/action_carteiraFragment_to_perfilFragment"
             app:destination="@+id/navigation_perfil"
             app:popUpTo="@+id/navigation_perfil"
             />

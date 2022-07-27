@@ -1,10 +1,13 @@
 package com.example.expresskotlin.ui.carrinho
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -13,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expresskotlin.R
 import com.example.expresskotlin.adapters.CarrinhoAdapter
-import com.example.expresskotlin.adapters.ProdutosAdapter
 import com.example.expresskotlin.databinding.FragmentCarrinhoBinding
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.CartItem
@@ -32,8 +34,18 @@ class CarrinhoFragment : Fragment() {
         var cartItemList = ArrayList<CartItem>()
     }
     lateinit var mRecyclerView : RecyclerView
+
+    lateinit var txtSub : TextView
     lateinit var txtSubtotal : TextView
+
+    lateinit var txtTax : TextView
+    lateinit var txtTaxaEntrega : TextView
+
+    lateinit var separator_view : View
+    lateinit var txtTot : TextView
     lateinit var txtTotal : TextView
+
+    lateinit var btnCheckout : Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -62,9 +74,20 @@ class CarrinhoFragment : Fragment() {
             (activity as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(true)
         }
         mRecyclerView = binding.recyclerView
+
+        txtSub = binding.txtSub
         txtSubtotal = binding.txtSubtotal
+
+        txtTax = binding.txtTax
+        txtTaxaEntrega = binding.txtTaxaEntrega
+        separator_view = binding.separatorView
+
+        txtTot = binding.txtTot
         txtTotal = binding.txtTotal
+
+        btnCheckout = binding.btnCheckout
         setUpRecyclerView()
+
     }
 
     private fun setUpRecyclerView() {
@@ -76,6 +99,15 @@ class CarrinhoFragment : Fragment() {
         mRecyclerView.layoutManager = myLinearLayoutManager
         mRecyclerView.adapter = cartAdapter
         setCartSubTotal(cartItemList)
+
+        cartAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
+            override fun onChanged() {
+                // ...
+                Log.d("TAG_cart", "onChanged: registerAdapterDataObserver")
+                setCartSubTotal(cartAdapter.cartItemList)
+            }
+        })
+
     }
 
     private fun setCartSubTotal(cartItemList: ArrayList<CartItem>) {
@@ -87,16 +119,43 @@ class CarrinhoFragment : Fragment() {
         val subTotalCart = MetodosUsados.getCartPrice(cartItemList)
 
         val subTotalPrice:Double = subTotalCart.toDouble()
+        val totalDeTudoPrice = subTotalPrice + 500
+
+        if(subTotalPrice<=0){
+            hideViews()
+        }else{
+            showViews()
+        }
 
         txtSubtotal.text = StringBuilder("")
             .append(MetodosUsados.formatPrice(subTotalPrice)).append(" Akz").toString()
 
-        val totalDeTudoPrice = subTotalPrice + 500
-
-
-
         txtTotal.text = StringBuilder()
             .append(MetodosUsados.formatPrice(totalDeTudoPrice)).append(" Akz").toString()
+    }
+
+    private fun showViews() {
+        txtSub.visibility = View.VISIBLE
+        txtSubtotal.visibility = View.VISIBLE
+        txtTax.visibility = View.VISIBLE
+        txtTaxaEntrega.visibility = View.VISIBLE
+        separator_view.visibility = View.VISIBLE
+        txtTot.visibility = View.VISIBLE
+        txtTotal.visibility = View.VISIBLE
+        btnCheckout.visibility = View.VISIBLE
+    }
+
+    private fun hideViews() {
+        txtSub.visibility = View.GONE
+        txtSubtotal.visibility = View.GONE
+        txtTax.visibility = View.GONE
+        txtTaxaEntrega.visibility = View.GONE
+        separator_view.visibility = View.GONE
+        txtTot.visibility = View.GONE
+        txtTotal.visibility = View.GONE
+        btnCheckout.visibility = View.GONE
+
+        Toast.makeText(context, "Carrinho vazio", Toast.LENGTH_SHORT).show()
     }
 
     private fun loadCartItems(){

@@ -205,7 +205,7 @@ class LoadData {
             produtosList.add(Produtos(12,"Blue",100.00,"refrigerante",
                 "https://www.alimentaangola.co.ao/wp-content/uploads/2021/08/REFRI-MARACUJA-LATA-BLUE-330ml.jpg"))
             produtosList.add(Produtos(13,"Pepsi",200.00,"refrigerante",
-                ""))
+                "https://diariolibre.blob.core.windows.net.optimalcdn.com/images/binrepository/shutterstock-1481415659_17053662_20210817230135.jpg"))
             produtosList.add(Produtos(14,"7Up",700.00,"refrigerante",
                 "https://aghacuisine.ca/wp-content/uploads/2022/01/7UP-e1642656690617.png"))
             produtosList.add(Produtos(15,"Mirinda",800.00,"refrigerante",

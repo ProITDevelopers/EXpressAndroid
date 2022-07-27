@@ -2,7 +2,6 @@ package com.example.expresskotlin.models
 
 import java.io.Serializable
 import java.util.*
-import kotlin.collections.ArrayList
 
 class CartItem : Serializable {
 

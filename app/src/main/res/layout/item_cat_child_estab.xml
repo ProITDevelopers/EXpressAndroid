@@ -98,6 +98,86 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:padding="8dp"
+                        >
+
+
+                        <RelativeLayout
+                            android:id="@+id/relativeAddItemCart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_vertical"
+                            android:visibility="visible"
+                            android:background="@drawable/button_cart_rectangle_solid_bkg"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?android:attr/selectableItemBackground">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_baseline_add_64"
+                                app:tint="@color/white"/>
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearProdCount"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerInParent="true"
+                            android:gravity="center_vertical"
+                            android:visibility="gone">
+
+                            <ImageView
+                                android:id="@+id/imgRemoveItem"
+                                android:src="@drawable/ic_baseline_remove_circle_24"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:tint="@color/btn_add_remove_color"
+                                android:layout_weight="0.25"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                />
+
+                            <TextView
+                                android:id="@+id/txtProdQuantity"
+                                android:text="1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/text_blue_dark_color"
+                                android:fontFamily="@font/poppins_regular"
+                                android:layout_weight="0.5"
+                                android:gravity="center"
+                                android:background="@color/orange_light"
+                                />
+
+                            <ImageView
+                                android:id="@+id/imgAddItem"
+                                android:src="@drawable/ic_baseline_add_circle_24"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:tint="@color/btn_add_remove_color"
+                                android:layout_weight="0.25"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:foreground="?android:attr/selectableItemBackground"
+                                />
+
+
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
 
 
 

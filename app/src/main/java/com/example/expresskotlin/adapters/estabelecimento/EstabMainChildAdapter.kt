@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,12 +18,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.expresskotlin.R
-import com.facebook.shimmer.ShimmerFrameLayout
-
 import com.example.expresskotlin.eventbus.ProdutoClick
+import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.Produtos
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainChildAdapter.ViewHolder>() {
@@ -52,14 +53,14 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var produtos = produtosList[position]
+        var produto = produtosList[position]
         // sets the text to the textview from our itemHolder class
 
 
 
         context?.let {
             Glide.with(it).asBitmap()
-                .load(produtos.imgUrl)
+                .load(produto.imgUrl)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .centerCrop()
                 .placeholder(R.color.gray_color)
@@ -92,15 +93,67 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
         }
 
 
-        holder.txtProdTitle.text = produtos.titulo
-        holder.txtProdPrice.text = StringBuilder(produtos.preco.toString()).append(" Akz").toString()
+        holder.txtProdTitle.text = produto.titulo
+        holder.txtProdPrice.text = StringBuilder(produto.preco.toString()).append(" Akz").toString()
 
 
         holder.cardView.setOnClickListener {
             context?.let { it1 ->
 //                MetodosUsados.mostrarMensagem(it1,produtos.titulo.toString())
-                EventBus.getDefault().postSticky(ProdutoClick(true, estabTitulo,produtos))
+                EventBus.getDefault().postSticky(ProdutoClick(true, estabTitulo,produto))
             }
+        }
+
+        holder.relativeAddItemCart.setOnClickListener {
+            context?.let { it1 ->
+
+
+                if (produto.quantity <= 0){
+                    produto.quantity = 1
+                    holder.txtProdQuantity.text = produto.quantity.toString()
+
+                    holder.relativeAddItemCart.visibility = View.GONE
+                    holder.linearProdCount.visibility = View.VISIBLE
+                }
+
+            }
+        }
+
+        holder.imgRemoveItem.setOnClickListener{
+            context?.let { it1 ->
+                produto.quantity--
+                if (produto.quantity<=0){
+                    produto.quantity = 0
+
+                    holder.linearProdCount.visibility = View.GONE
+
+                    holder.txtProdQuantity.text = produto.quantity.toString()
+                    holder.relativeAddItemCart.visibility = View.VISIBLE
+                }
+                else{
+
+                    holder.txtProdQuantity.text = produto.quantity.toString()
+                }
+
+            }
+
+        }
+
+        holder.imgAddItem.setOnClickListener{
+            context?.let { it1 ->
+                produto.quantity++
+                if (produto.quantity>0 && produto.quantity >=10){
+
+                    produto.quantity = 10
+                    holder.txtProdQuantity.text = produto.quantity.toString()
+                    MetodosUsados.mostrarMensagem(it1,"Atingiu o limite do item")
+                }
+                else{
+                    holder.txtProdQuantity.text = produto.quantity.toString()
+                }
+
+            }
+
         }
 
     }
@@ -120,6 +173,12 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
         val shimmerFrameLayout: ShimmerFrameLayout = itemView.findViewById(R.id.shimmerFrameLayout)
         val txtProdTitle: TextView = itemView.findViewById(R.id.txtProdTitle)
         val txtProdPrice: TextView = itemView.findViewById(R.id.txtProdPrice)
+
+        val relativeAddItemCart: RelativeLayout = itemView.findViewById(R.id.relativeAddItemCart)
+        val linearProdCount: LinearLayout = itemView.findViewById(R.id.linearProdCount)
+        val imgRemoveItem: ImageView = itemView.findViewById(R.id.imgRemoveItem)
+        val txtProdQuantity: TextView = itemView.findViewById(R.id.txtProdQuantity)
+        val imgAddItem: ImageView = itemView.findViewById(R.id.imgAddItem)
 
     }
 

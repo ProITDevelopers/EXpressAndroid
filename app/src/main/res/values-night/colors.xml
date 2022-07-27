@@ -37,4 +37,15 @@
     <color name="text_final_time_color">#facab5</color>
     <color name="card_detalhe_color">@null</color>
     <color name="icon_perfil_settings_color">@color/orange</color>
+    <color name="search_img_bkg_color">@color/orange</color>
+    <color name="search_arrowback_color">@color/orange</color>
+    <color name="search_box_color">@color/default_night_color</color>
+    <color name="top_filter_bkg_color">@color/default_night_color</color>
+    <color name="text_search_categ_color">@color/orange</color>
+    <color name="tablayout_color">@color/orange</color>
+    <color name="tab_selected_text_color">@color/white</color>
+    <color name="tab_text_color">#2e6179</color>
+    <color name="tab_icon_selected_color">@color/white</color>
+    <color name="tab_icon_unselected_color">#2e6179</color>
+    <color name="tab_indicator_color">@color/white</color>
 </resources>

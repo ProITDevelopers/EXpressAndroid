@@ -11,9 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.ActivitySplashBinding
-import com.facebook.shimmer.ShimmerFrameLayout
-
 import com.example.expresskotlin.helpers.MetodosUsados
+import com.facebook.shimmer.ShimmerFrameLayout
 
 @Suppress("DEPRECATION")
 class SplashActivity : AppCompatActivity() {

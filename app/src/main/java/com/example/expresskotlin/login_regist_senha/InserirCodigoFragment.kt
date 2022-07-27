@@ -13,9 +13,8 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.expresskotlin.R
-import com.example.expresskotlin.databinding.FragmentInserirCodigoBinding
 import com.example.expresskotlin.activities.RecuperarSenhaActivity
-
+import com.example.expresskotlin.databinding.FragmentInserirCodigoBinding
 
 
 private const val ARG_PARAM1 = "param1"

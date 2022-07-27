@@ -8,10 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.expresskotlin.databinding.FragmentAtualizarPassBinding
 import com.example.expresskotlin.R
+import com.example.expresskotlin.databinding.FragmentAtualizarPassBinding
 import org.greenrobot.eventbus.EventBus
-
 
 
 class AtualizarPassFragment : Fragment() {

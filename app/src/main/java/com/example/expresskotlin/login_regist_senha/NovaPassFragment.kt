@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.expresskotlin.databinding.FragmentNovaPassBinding
 import com.example.expresskotlin.R
+import com.example.expresskotlin.databinding.FragmentNovaPassBinding
 
 
 private const val ARG_PARAM1 = "param1"

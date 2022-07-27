@@ -13,13 +13,13 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
-import com.example.expresskotlin.databinding.FragmentLoginBinding
-import com.google.android.material.tabs.TabLayout
-import com.example.expresskotlin.*
+import com.example.expresskotlin.MainActivity
+import com.example.expresskotlin.R
 import com.example.expresskotlin.activities.CadastroActivity
 import com.example.expresskotlin.activities.RecuperarSenhaActivity
-import com.example.expresskotlin.R
+import com.example.expresskotlin.databinding.FragmentLoginBinding
 import com.example.expresskotlin.helpers.MetodosUsados
+import com.google.android.material.tabs.TabLayout
 
 
 private const val ARG_PARAM1 = "param1"

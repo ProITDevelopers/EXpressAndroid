@@ -1,4 +1,4 @@
-package com.example.expresskotlin.adapters
+package com.example.expresskotlin.adapters.viewpager
 
 import android.content.Context
 import android.view.LayoutInflater

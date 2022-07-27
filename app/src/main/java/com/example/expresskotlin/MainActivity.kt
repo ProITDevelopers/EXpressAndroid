@@ -5,15 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
+import com.example.expresskotlin.databinding.ActivityMainBinding
 import com.example.expresskotlin.eventbus.*
-import com.example.expresskotlin.helpers.MetodosUsados
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import com.example.expresskotlin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,11 +28,12 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_home, R.id.categoriaEstabFragment, R.id.estabFragment,
+            R.id.navigation_home,R.id.searchFragment, R.id.categoriaEstabFragment, R.id.estabFragment,
             R.id.produtosFragment, R.id.produtoDetalheFragment,
             R.id.navigation_mapa,
             R.id.navigation_carrinho,
-            R.id.navigation_perfil,R.id.editarPerfilFragment,R.id.atualizarPassFragment))
+            R.id.navigation_perfil,R.id.editarPerfilFragment,R.id.atualizarPassFragment,
+            R.id.myAddressFragment,R.id.meusPedidosFragment,R.id.carteiraFragment))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -48,6 +46,16 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop()
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSearchClickEvent(event: SearchClick?) {
+        // Do something
+        if (event?.success == true){
+            val navController = findNavController(R.id.nav_host_fragment_activity_main)
+            navController.navigate(R.id.searchFragment)
+
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -108,26 +116,33 @@ class MainActivity : AppCompatActivity() {
             val bundle = Bundle()
             val navController = findNavController(R.id.nav_host_fragment_activity_main)
             when(event.position){
+                //Atualizar Perfil
                 0 ->{
                     bundle.putSerializable("mToolbarTitle", event.titulo)
                     navController.navigate(R.id.editarPerfilFragment, bundle)
 
                 }
+                //Atualizar Palavra-Passe
                 1 ->{
                     bundle.putSerializable("mToolbarTitle", event.titulo)
                     navController.navigate(R.id.atualizarPassFragment, bundle)
                 }
+                //Meus Endereços
                 2 ->{
                     bundle.putSerializable("mToolbarTitle", event.titulo)
-                    MetodosUsados.mostrarMensagem(this,event.titulo)
+                    navController.navigate(R.id.myAddressFragment, bundle)
                 }
+                //Pedidos
                 3 ->{
                     bundle.putSerializable("mToolbarTitle", event.titulo)
-                    MetodosUsados.mostrarMensagem(this,event.titulo)
+                    navController.navigate(R.id.meusPedidosFragment, bundle)
+
                 }
+                //Carteira
                 4 ->{
                     bundle.putSerializable("mToolbarTitle", event.titulo)
-                    MetodosUsados.mostrarMensagem(this,event.titulo)
+                    navController.navigate(R.id.carteiraFragment, bundle)
+
                 }
             }
 

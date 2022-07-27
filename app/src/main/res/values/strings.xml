@@ -57,4 +57,10 @@
     <string name="palavra_passe_antiga">Palavra-Passe Antiga</string>
 
     <string name="msg_ligar_gps">Para continuar, ative a localização do dispositivo, a qual utiliza o serviço de localização da Google.</string>
+    <string name="pesquisar_hint">Pesquisar…</string>
+    <string name="pedidos_tab_ativos">ATIVOS</string>
+    <string name="pedidos_tab_historicos">HISTÓRICOS</string>
+    <string name="carteira_tab_saldo">SALDO</string>
+    <string name="carteira_tab_entrada">ENTRADA</string>
+    <string name="carteira_tab_saida">SAÍDA</string>
 </resources>

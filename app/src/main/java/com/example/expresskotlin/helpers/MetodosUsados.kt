@@ -13,7 +13,6 @@ import com.example.expresskotlin.R
 import com.example.expresskotlin.models.CartItem
 import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.ArrayList
 import kotlin.random.Random
 
 @Suppress("DEPRECATION")

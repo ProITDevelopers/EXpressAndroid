@@ -9,9 +9,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.expresskotlin.databinding.FragmentPerfilBinding
 import com.example.expresskotlin.R
 import com.example.expresskotlin.adapters.PerfilSettingsAdapter
+import com.example.expresskotlin.databinding.FragmentPerfilBinding
 import com.example.expresskotlin.models.IconTitle
 
 class PerfilFragment : Fragment() {

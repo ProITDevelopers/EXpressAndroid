@@ -16,13 +16,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.example.expresskotlin.R
 import com.example.expresskotlin.eventbus.ProdutoClick
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.Produtos
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.ViewHolder>() {
@@ -113,7 +112,7 @@ class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.V
                     MetodosUsados.mostrarMensagem(it1,produto.titulo.toString()+" removido do Carrinho")
                     holder.linearProdCount.visibility = View.GONE
                     holder.txtAddItemCart.text = "Adicionar"
-                    holder.txtAddItemCart.isEnabled = true
+
                     holder.txtProdQuantity.text = produto.quantity.toString()
                     holder.txtAddItemCart.visibility = View.VISIBLE
                 }
@@ -121,6 +120,7 @@ class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.V
 
                     holder.txtProdQuantity.text = produto.quantity.toString()
                 }
+
             }
 
         }
@@ -137,6 +137,7 @@ class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.V
                 else{
                     holder.txtProdQuantity.text = produto.quantity.toString()
                 }
+
             }
 
         }
@@ -151,7 +152,7 @@ class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.V
                     holder.txtProdQuantity.text = produto.quantity.toString()
                     MetodosUsados.mostrarMensagem(it1,produto.titulo.toString()+" adicionado ao Carrinho")
                     holder.txtAddItemCart.text = "Adicionado"
-                    holder.txtAddItemCart.isEnabled = false
+
                     holder.txtAddItemCart.visibility = View.GONE
                     holder.linearProdCount.visibility = View.VISIBLE
                 }

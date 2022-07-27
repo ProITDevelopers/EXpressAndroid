@@ -16,13 +16,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.expresskotlin.R
-import com.facebook.shimmer.ShimmerFrameLayout
-
 import com.example.expresskotlin.eventbus.EstabClick
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.Estabelecimento
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class HomeMainChildAdapter(context: Context) : RecyclerView.Adapter<HomeMainChildAdapter.ViewHolder>() {

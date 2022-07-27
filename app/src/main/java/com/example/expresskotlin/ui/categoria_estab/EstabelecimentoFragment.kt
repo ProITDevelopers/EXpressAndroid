@@ -20,11 +20,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.example.expresskotlin.R
-import com.example.expresskotlin.databinding.FragmentEstabelecimentoBinding
 import com.example.expresskotlin.adapters.estabelecimento.EstabMainAdapter
+import com.example.expresskotlin.databinding.FragmentEstabelecimentoBinding
 import com.example.expresskotlin.models.Estabelecimento
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.greenrobot.eventbus.EventBus
 
 

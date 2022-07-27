@@ -15,12 +15,12 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatCheckBox
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.tabs.TabLayout
 import com.example.expresskotlin.MainActivity
 import com.example.expresskotlin.R
-import com.example.expresskotlin.databinding.FragmentRegistroBinding
 import com.example.expresskotlin.activities.CadastroActivity
+import com.example.expresskotlin.databinding.FragmentRegistroBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
 import de.hdodenhof.circleimageview.CircleImageView
 
 

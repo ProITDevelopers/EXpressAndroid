@@ -23,7 +23,7 @@ class ProdutosFragment  : Fragment() {
     private val binding get() = _binding!!
     private var estabTitulo: String? = null
     private lateinit var menuCatProdutos: MenuCatProdutos
-    lateinit var mRecyclerView : RecyclerView
+    private lateinit var mRecyclerView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         arguments?.let {

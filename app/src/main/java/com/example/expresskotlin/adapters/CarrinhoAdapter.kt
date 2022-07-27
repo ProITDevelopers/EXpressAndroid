@@ -16,14 +16,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.example.expresskotlin.R
-import com.example.expresskotlin.eventbus.ProdutoClick
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.CartItem
-import com.example.expresskotlin.models.Produtos
-import org.greenrobot.eventbus.EventBus
-import java.util.*
+import com.facebook.shimmer.ShimmerFrameLayout
 
 
 class CarrinhoAdapter(context: Context) : RecyclerView.Adapter<CarrinhoAdapter.ViewHolder>() {
@@ -110,17 +106,17 @@ class CarrinhoAdapter(context: Context) : RecyclerView.Adapter<CarrinhoAdapter.V
                 cartItem.cartItemQuantity--
                 if (cartItem.cartItemQuantity<=0){
                     cartItem.cartItemQuantity = 0
-                    MetodosUsados.mostrarMensagem(it1,cartItem.produto.titulo.toString()+" removido do Carrinho")
-//                    holder.linearProdCount.visibility = View.GONE
-                    holder.txtRemoveItemCart.text = "Adicionar"
-                    holder.txtRemoveItemCart.isEnabled = true
-                    holder.txtProdQuantity.text = cartItem.cartItemQuantity.toString()
-//                    holder.txtRemoveItemCart.visibility = View.VISIBLE
+
+
+                    cartItemList.removeAt(position)
+
+
                 }
                 else{
 
                     holder.txtProdQuantity.text = cartItem.cartItemQuantity.toString()
                 }
+                notifyDataSetChanged()
             }
 
         }
@@ -137,25 +133,16 @@ class CarrinhoAdapter(context: Context) : RecyclerView.Adapter<CarrinhoAdapter.V
                 else{
                     holder.txtProdQuantity.text = cartItem.cartItemQuantity.toString()
                 }
+                notifyDataSetChanged()
             }
 
         }
 
         holder.txtRemoveItemCart.setOnClickListener {
             context?.let { it1 ->
-//                val drawBkg:Drawable
-//                drawBkg = context.resources.getDrawable(R.drawable.)
 
-                if (cartItem.cartItemQuantity <= 0){
-                    cartItem.cartItemQuantity = 1
-                    holder.txtProdQuantity.text = cartItem.cartItemQuantity.toString()
-                    MetodosUsados.mostrarMensagem(it1,cartItem.produto.titulo.toString()+" eliminado do Carrinho")
-                    holder.txtRemoveItemCart.text = "Eliminar"
-                    holder.txtRemoveItemCart.isEnabled = false
-//                    holder.txtRemoveItemCart.visibility = View.GONE
-//                    holder.linearProdCount.visibility = View.VISIBLE
-                }
-
+                cartItemList.removeAt(position)
+                notifyDataSetChanged()
 
 
             }
@@ -170,6 +157,8 @@ class CarrinhoAdapter(context: Context) : RecyclerView.Adapter<CarrinhoAdapter.V
         else
             return 0
     }
+
+
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {

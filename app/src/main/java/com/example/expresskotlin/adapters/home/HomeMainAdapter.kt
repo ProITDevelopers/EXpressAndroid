@@ -9,11 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expresskotlin.R
-
 import com.example.expresskotlin.eventbus.CategoriaEstabClick
 import com.example.expresskotlin.models.MenuCategoria
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class HomeMainAdapter(context: Context) : RecyclerView.Adapter<HomeMainAdapter.ViewHolder>() {

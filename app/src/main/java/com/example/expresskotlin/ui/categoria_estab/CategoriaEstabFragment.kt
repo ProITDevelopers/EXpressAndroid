@@ -11,9 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expresskotlin.R
+import com.example.expresskotlin.adapters.estabelecimento.CatEstabAdapter
 import com.example.expresskotlin.databinding.FragmentCategoriaEstabBinding
-import com.example.expresskotlin.adapters.CatEstabAdapter
-
 import com.example.expresskotlin.models.MenuCategoria
 import org.greenrobot.eventbus.EventBus
 

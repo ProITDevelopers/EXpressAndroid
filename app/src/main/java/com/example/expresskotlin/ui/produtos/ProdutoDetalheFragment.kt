@@ -18,15 +18,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentProdutoDetalheBinding
 import com.example.expresskotlin.helpers.MetodosUsados
-import com.example.expresskotlin.models.CartItem
 import com.example.expresskotlin.models.Produtos
-import com.example.expresskotlin.ui.carrinho.CarrinhoFragment
 import de.hdodenhof.circleimageview.CircleImageView
-
 import org.greenrobot.eventbus.EventBus
 
 

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.expresskotlin.activities.RecuperarSenhaActivity
 import com.example.expresskotlin.R
+import com.example.expresskotlin.activities.RecuperarSenhaActivity
 import com.example.expresskotlin.databinding.FragmentRecuperarBinding
 
 

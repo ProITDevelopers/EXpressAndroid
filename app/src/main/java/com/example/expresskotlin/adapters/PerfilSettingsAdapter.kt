@@ -1,7 +1,6 @@
 package com.example.expresskotlin.adapters
 
 import android.content.Context
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import com.example.expresskotlin.R
 import com.example.expresskotlin.eventbus.PerfilSettingsClick
 import com.example.expresskotlin.models.IconTitle
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class PerfilSettingsAdapter(context: Context) : RecyclerView.Adapter<PerfilSettingsAdapter.ViewHolder>() {
