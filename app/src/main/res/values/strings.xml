@@ -46,6 +46,7 @@
     <string name="nova_palavra_passe">Nova Palavra-Passe</string>
     <string name="por_favor_nova_palavra_passe">Por favor introduza \na sua nova palavra-passe</string>
     <string name="confirmar_palavra_passe">Confirmar Palavra-Passe</string>
+    <string name="confirmar_palavra_passe_dots">Confirmar Palavra-Passe:</string>
     <string name="my_address">Rua ABC, Bairro 123, Luanda, Angola</string>
     <string name="feedback_sucesso">Está tudo certo meu chapa!</string>
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</string>
@@ -63,4 +64,16 @@
     <string name="carteira_tab_saldo">SALDO</string>
     <string name="carteira_tab_entrada">ENTRADA</string>
     <string name="carteira_tab_saida">SAÍDA</string>
+    <string name="digite_numero_dots">Digite o Número de Telefone:</string>
+    <string name="local_entrega_dots">Local da Entrega:</string>
+    <string name="metodo_pagamento_dots">Método de Pagamento:</string>
+    <string name="title_checkout">Checkout</string>
+    <string name="obrigado">Obrigado</string>
+    <string name="msg_pedido_sendo_processado">O seu pedido está sendo processado.</string>
+    <string name="controlar_seu_pedido">Controlar Seu Pedido</string>
+    <string name="voltar_ao_inicio">Voltar Ao Início</string>
+    <string name="digite_codigo_confirmacao">Código de confirmação</string>
+    <string name="digite_codigo_confirmacao_dots">Digite o código de confirmação:</string>
+    <string name="confirmar">CONFIRMAR</string>
+    <string name="reenviar_o_codigo">Reenviar o código</string>
 </resources>

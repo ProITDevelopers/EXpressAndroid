@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.checkout.CheckoutFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/orange"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:collapseIcon="@drawable/ic_baseline_arrow_back_24"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="36dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_begin="@dimen/guidelines_dimens"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/guidelines_dimens"
+                android:layout_marginLeft="@dimen/guidelines_dimens"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="@dimen/guidelines_dimens"
+                android:layout_marginRight="@dimen/guidelines_dimens"
+                android:layout_marginEnd="@dimen/guidelines_dimens"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/txtPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/digite_numero_dots"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="50dp"
+                android:padding="5dp"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <LinearLayout
+                android:id="@+id/linearPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/txtPhone"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@id/guideline_right"
+                android:background="@drawable/edit_box_rectangle"
+                android:padding="5dp"
+                android:weightSum="1"
+                >
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTelefone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:background="@android:color/transparent"
+                    android:padding="10dp"
+                    android:textColor="@color/orange"
+                    android:textColorHint="@color/orange_light"
+                    android:hint="@string/user_phone_hint"
+                    android:textSize="14sp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:inputType="phone"
+                    android:fontFamily="@font/poppins_medium"
+                    />
+
+                <TextView
+                    android:text="@string/telefone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:layout_marginRight="8dp"
+                    android:gravity="right|end"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/text_blue_dark_color"
+                    />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/txtLocal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/local_entrega_dots"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="26dp"
+                android:padding="5dp"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/linearPhone"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtLocal"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@id/guideline_right"/>
+
+
+            <TextView
+                android:id="@+id/txtMyAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="ABC 123, Bairro Não sei, Maianga, Luanda rfdrerg"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:textColor="@color/text_blue_normal_color"
+                android:fontFamily="@font/poppins_regular"
+                android:drawablePadding="8dp"
+                android:drawableEnd="@drawable/ic_baseline_edit_outline_24"
+                android:drawableRight="@drawable/ic_baseline_edit_outline_24"
+                android:drawableTint="@color/icon_perfil_settings_color"
+                app:layout_constraintTop_toBottomOf="@+id/map"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                />
+
+            <TextView
+                android:id="@+id/txtMetoPagm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/metodo_pagamento_dots"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="26dp"
+                android:padding="5dp"
+                android:textColor="@color/orange"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtMyAddress"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="8dp"
+                android:id="@+id/cardViewTPA"
+                app:layout_constraintTop_toBottomOf="@+id/txtMetoPagm"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                >
+
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/txtTPA"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:padding="10dp"
+                        android:textColor="@color/text_title_cardgrid_color"
+                        android:text="TPA/Referencia"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/poppins_medium"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioBtnTPA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|end"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+
+                </FrameLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardElevation="5dp"
+                app:cardCornerRadius="8dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/cardViewCarteira"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewTPA"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                >
+
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    >
+
+                    <TextView
+                        android:id="@+id/txtCarteira"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:padding="10dp"
+                        android:textColor="@color/text_title_cardgrid_color"
+                        android:text="Carteira"
+                        android:textSize="14sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/poppins_medium"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioBtnCarteira"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|end"
+                        android:fontFamily="@font/poppins_regular"
+                        />
+
+                </FrameLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txtSub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="32dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewCarteira"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <TextView
+                android:id="@+id/txtSubtotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14kz:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="32dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/cardViewCarteira"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <TextView
+                android:id="@+id/txtTax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxa de Entrega:"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtSub"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+            <TextView
+                android:id="@+id/txtTaxaEntrega"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500 Akz"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtSubtotal"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <TextView
+                android:id="@+id/txtDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Desconto:"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtTax"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+            <TextView
+                android:id="@+id/txtDesconto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="400 Akz"
+                android:textSize="@dimen/text_normal_size"
+                android:padding="5dp"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/txtTaxaEntrega"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <View
+                android:id="@+id/separator_view"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@color/gray_color"
+                app:layout_constraintTop_toBottomOf="@+id/txtDesc"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                />
+
+            <TextView
+                android:id="@+id/txtTot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/separator_view"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"/>
+
+
+            <TextView
+                android:id="@+id/txtTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14kz:"
+                android:textSize="@dimen/text_normal_size"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/text_title_cardgrid_color"
+                android:fontFamily="@font/poppins_regular"
+                app:layout_constraintTop_toBottomOf="@+id/separator_view"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
+
+            <android.widget.Button
+                android:id="@+id/btnEnviar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Enviar Pedido"
+                android:textColor="@color/white"
+                android:background="@drawable/button_bkg"
+                android:fontFamily="@font/poppins_bold"
+                app:layout_constraintTop_toBottomOf="@+id/txtTot"
+                app:layout_constraintStart_toEndOf="@+id/guideline_left"
+                app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -108,7 +108,24 @@
         android:id="@+id/navigation_carrinho"
         android:name="com.example.expresskotlin.ui.carrinho.CarrinhoFragment"
         android:label="@string/title_carrinho"
-        tools:layout="@layout/fragment_carrinho" />
+        tools:layout="@layout/fragment_carrinho">
+
+        <action android:id="@+id/action_carrinho_to_checkoutFragment"
+            app:destination="@id/checkoutFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/checkoutFragment"
+        android:name="com.example.expresskotlin.ui.checkout.CheckoutFragment"
+        tools:layout="@layout/fragment_checkout">
+
+        <action android:id="@+id/action_checkoutFragment_to_navigation_carrinho"
+            app:destination="@+id/navigation_carrinho"
+            app:popUpTo="@+id/navigation_carrinho"
+            />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_perfil"

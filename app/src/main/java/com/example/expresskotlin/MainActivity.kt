@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home,R.id.searchFragment, R.id.categoriaEstabFragment, R.id.estabFragment,
             R.id.produtosFragment, R.id.produtoDetalheFragment,
             R.id.navigation_mapa,
-            R.id.navigation_carrinho,
+            R.id.navigation_carrinho,R.id.checkoutFragment,
             R.id.navigation_perfil,R.id.editarPerfilFragment,R.id.atualizarPassFragment,
             R.id.myAddressFragment,R.id.meusPedidosFragment,R.id.carteiraFragment))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
@@ -147,6 +147,19 @@ class MainActivity : AppCompatActivity() {
             }
 
 
+
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onCartCheckClickEvent(event: CartCheckClick?) {
+        // Do something
+        if (event?.success == true){
+            val bundle = Bundle()
+            bundle.putDouble("subTotalPrice", event.subTotalPrice)
+            bundle.putDouble("totalDeTudoPrice", event.totalDeTudoPrice)
+            val navController = findNavController(R.id.nav_host_fragment_activity_main)
+            navController.navigate(R.id.checkoutFragment, bundle)
 
         }
     }
