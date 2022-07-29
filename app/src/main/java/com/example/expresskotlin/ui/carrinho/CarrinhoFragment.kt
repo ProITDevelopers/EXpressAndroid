@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.expresskotlin.R
 import com.example.expresskotlin.adapters.CarrinhoAdapter
 import com.example.expresskotlin.databinding.FragmentCarrinhoBinding
+import com.example.expresskotlin.eventbus.CartCheckClick
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.CartItem
 import com.example.expresskotlin.models.Produtos
+import org.greenrobot.eventbus.EventBus
 
 
 class CarrinhoFragment : Fragment() {
@@ -33,19 +35,21 @@ class CarrinhoFragment : Fragment() {
     companion object {
         var cartItemList = ArrayList<CartItem>()
     }
-    lateinit var mRecyclerView : RecyclerView
+    private lateinit var mRecyclerView : RecyclerView
 
-    lateinit var txtSub : TextView
-    lateinit var txtSubtotal : TextView
+    private lateinit var txtSub : TextView
+    private lateinit var txtSubtotal : TextView
 
-    lateinit var txtTax : TextView
-    lateinit var txtTaxaEntrega : TextView
+    private lateinit var txtTax : TextView
+    private lateinit var txtTaxaEntrega : TextView
 
-    lateinit var separator_view : View
-    lateinit var txtTot : TextView
-    lateinit var txtTotal : TextView
+    private lateinit var separator_view : View
+    private lateinit var txtTot : TextView
+    private lateinit var txtTotal : TextView
 
-    lateinit var btnCheckout : Button
+    private lateinit var btnCheckout : Button
+    private var subTotalPrice:Double = 0.0
+    private var totalDeTudoPrice = subTotalPrice
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -88,6 +92,10 @@ class CarrinhoFragment : Fragment() {
         btnCheckout = binding.btnCheckout
         setUpRecyclerView()
 
+        btnCheckout.setOnClickListener{
+            EventBus.getDefault().postSticky(CartCheckClick(true, subTotalPrice,totalDeTudoPrice))
+        }
+
     }
 
     private fun setUpRecyclerView() {
@@ -118,8 +126,8 @@ class CarrinhoFragment : Fragment() {
 //        total_Items_Cart = itemCount;
         val subTotalCart = MetodosUsados.getCartPrice(cartItemList)
 
-        val subTotalPrice:Double = subTotalCart.toDouble()
-        val totalDeTudoPrice = subTotalPrice + 500
+        subTotalPrice = subTotalCart.toDouble()
+        totalDeTudoPrice = subTotalPrice + 500 //TaxaEntrega
 
         if(subTotalPrice<=0){
             hideViews()
