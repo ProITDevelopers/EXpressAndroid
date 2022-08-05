@@ -24,9 +24,6 @@ class Produtos : Serializable {
     }
 
     constructor()
-    {
-
-    }
 
     override fun toString(): String {
         return "Produto = {id='$idProduto', titulo=$titulo', preco=$preco', tipo=$tipo}"

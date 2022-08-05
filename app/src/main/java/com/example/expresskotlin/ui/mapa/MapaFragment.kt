@@ -64,8 +64,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
     private var mLocationPermissionGranted = false
 
-    private val permissionsArray = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION)
+    private val permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION)
 
 
     override fun onCreateView(
@@ -93,6 +93,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         mapFragment = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
         mapFragment.getMapAsync(this)
 
+
+
         if(checkMapServices()){
             if(mLocationPermissionGranted){
                 getMyLoCation()
@@ -115,16 +117,16 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         if (activity?.let {
                 ActivityCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
             } != PackageManager.PERMISSION_GRANTED &&
             activity?.let {
                 ActivityCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
+                    Manifest.permission.ACCESS_FINE_LOCATION)
             } != PackageManager.PERMISSION_GRANTED) {
 
             //Request runtime permission
-            activity?.let { ActivityCompat.requestPermissions(it, permissionsArray, Common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) };
+            activity?.let { ActivityCompat.requestPermissions(it, permissionsArray, Common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) }
         } else {
 
 
@@ -152,7 +154,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         if (activity?.let {
                 ActivityCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
             } != PackageManager.PERMISSION_GRANTED &&
             activity?.let {
                 ActivityCompat.checkSelfPermission(
@@ -167,18 +169,19 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
             if (it!=null){
                 Common.mLastLocation = it
-                val myAddress = LatLng(Common.mLastLocation.latitude,Common.mLastLocation.longitude)
+                val myAddress = LatLng(it.latitude,it.longitude)
                 getMyEndereco = getMyAddress(myAddress)
 
                 Log.d(TAG, String.format("Your location was changed : %f / %f",
-                    it.latitude, it.longitude));
+                    it.latitude, it.longitude))
 
-                loadAllAvailableDriver(LatLng(Common.mLastLocation.latitude, Common.mLastLocation.longitude))
+                loadAllAvailableDriver(LatLng(it.latitude, it.longitude))
 
 
 
             }else{
                 Log.d(TAG, "Can not get your location")
+
             }
 
 
@@ -226,7 +229,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         if (activity?.let {
                 ContextCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
             } == PackageManager.PERMISSION_GRANTED &&
             activity?.let {
                 ActivityCompat.checkSelfPermission(
@@ -249,7 +252,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun isServicesOK():Boolean{
-        Log.d(TAG, "isServicesOK: checking google services version");
+        Log.d(TAG, "isServicesOK: checking google services version")
 
         val available: Int = context?.let {
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
@@ -259,12 +262,12 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
         if(available == ConnectionResult.SUCCESS){
             //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
+            Log.d(TAG, "isServicesOK: Google Play Services is working")
             return true
         }
         else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
             //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
+            Log.d(TAG, "isServicesOK: an error occured but we can fix it")
             val dialog = activity?.let { GoogleApiAvailability.getInstance().getErrorDialog(it, available, Common.ERROR_DIALOG_REQUEST) }
             dialog?.show()
 
@@ -349,12 +352,12 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         try {
             fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, locationCallback, Looper.myLooper())
         } catch (e:Exception) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
     }
 
     private fun buildAlertMessageNoGps() {
-        var message = getString(R.string.msg_ligar_gps)
+        val message = getString(R.string.msg_ligar_gps)
 
         if (activity!=null){
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -363,17 +366,19 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
                 builder?.setMessage(message)
 
-                builder?.setNegativeButton("Cancelar", DialogInterface.OnClickListener() {
+                builder?.setNegativeButton("Cancelar") {
 
                         dialog, id -> dialog.cancel()
 
-                })
+                }
 
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
+                builder?.setPositiveButton("OK") {
 
                         dialog, id -> dialog.cancel()
+                    val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
 
-                })
+                }
 
                 builder?.show()
             } else {
@@ -381,16 +386,18 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
                 val builder = activity?.let { AlertDialog.Builder(it) }
                 builder?.setMessage(message)
 
-                builder?.setNegativeButton("Cancelar", DialogInterface.OnClickListener() {
+                builder?.setNegativeButton("Cancelar") {
 
                         dialog, id -> dialog.cancel()
 
-                })
+                }
 
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
+                builder?.setPositiveButton("OK") {
                         dialog, id -> dialog.cancel()
+                    val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                    startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
 
-                })
+                }
 
 
                 builder?.show()
@@ -417,6 +424,9 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
                 mLocationPermissionGranted = true
 
             }
+            else{
+                Toast.makeText(context, "Need that permission", Toast.LENGTH_SHORT).show()
+            }
 
         }
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -442,14 +452,15 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
 
     override fun onResume() {
-        if(checkMapServices()){
-            if(mLocationPermissionGranted){
-                getMyLoCation()
-            }else{
-                getLocationPermission()
-            }
-
-        }
+//        if(checkMapServices()){
+//            if(mLocationPermissionGranted){
+//                getMyLoCation()
+//            }
+//            else{
+//                getLocationPermission()
+//            }
+//
+//        }
         super.onResume()
     }
 

@@ -1,11 +1,15 @@
 package com.example.expresskotlin.ui.home
 
 import android.Manifest
+import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -16,9 +20,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -79,8 +85,17 @@ class HomeFragment : Fragment() {
     private val FATEST_INTERVAL = 3000
     private val DISPLACEMENT = 10
     private var mLocationPermissionGranted = false
-    private val permissionsArray = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION)
+    private val permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION)
+
+    private lateinit var builder: AlertDialog
+
+    //DIALOG_LAYOUT_CONFIRMAR_PEDIDO
+    private lateinit var dialogLayoutAlertDialog: Dialog
+    private lateinit var txtAlertTitle : TextView
+    private lateinit var txtAlertMsg : TextView
+    private lateinit var dialog_btn_cancel : Button
+    private lateinit var dialog_btn_ok : Button
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -99,22 +114,7 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    private fun setUpMyLocation() {
-        fusedLocationProviderClient = context?.let {
-            LocationServices.getFusedLocationProviderClient(
-                it
-            )
-        }!!
 
-        if(checkMapServices()){
-            if(mLocationPermissionGranted){
-                getMyLoCation()
-            }else{
-                getLocationPermission()
-            }
-
-        }
-    }
 
 
     private fun initViews() {
@@ -138,19 +138,29 @@ class HomeFragment : Fragment() {
         imgSearch.setOnClickListener {
             EventBus.getDefault().postSticky(SearchClick(true))
         }
+
+        //-------------------------------------------------------------//
+        //-------------------------------------------------------------//
+        //DIALOG_LAYOUT_CONFIRMAR_PROCESSO
+        dialogLayoutAlertDialog = context?.let { Dialog(it) }!!
+        dialogLayoutAlertDialog.setContentView(R.layout.layout_alert_popup)
+        dialogLayoutAlertDialog.setCancelable(false)
+        if (dialogLayoutAlertDialog.window!=null)
+            dialogLayoutAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        txtAlertTitle = dialogLayoutAlertDialog.findViewById(R.id.txtAlertTitle)
+        txtAlertMsg = dialogLayoutAlertDialog.findViewById(R.id.txtAlertMsg)
+        dialog_btn_cancel = dialogLayoutAlertDialog.findViewById(R.id.dialog_btn_cancel)
+        dialog_btn_ok = dialogLayoutAlertDialog.findViewById(R.id.dialog_btn_ok)
     }
 
     private fun setUpViews() {
         slideAnimate()
-        setUpData()
         setUpRecyclerView()
         setUpMyLocation()
     }
 
-    private fun setUpData() {
 
-
-    }
 
     private fun slideAnimate() {
 //        sliderDotspanel?.removeAllViews()
@@ -159,7 +169,7 @@ class HomeFragment : Fragment() {
         viewPager.adapter = viewPagerAdapter
 
 
-        wormDotsIndicator.setViewPager(viewPager)
+        wormDotsIndicator.attachTo(viewPager)
 
         dotscount = viewPagerAdapter!!.count
 
@@ -198,8 +208,6 @@ class HomeFragment : Fragment() {
         })
     }
 
-
-
     private fun setUpRecyclerView() {
         val homeMainAdapter = context?.let { HomeMainAdapter(it) }
         homeMainAdapter?.setData(LoadData.getAllMenuCategoriaList())
@@ -212,6 +220,24 @@ class HomeFragment : Fragment() {
 //        mRecyclerView?.setHasFixedSize(true)
         mRecyclerView.layoutManager = myLinearLayoutManager
         mRecyclerView.adapter = homeMainAdapter
+    }
+
+    private fun setUpMyLocation() {
+        fusedLocationProviderClient = context?.let {
+            LocationServices.getFusedLocationProviderClient(
+                it
+            )
+        }!!
+
+
+//        if(checkMapServices()){
+//            if(mLocationPermissionGranted){
+//                getMyLoCation()
+//            }else{
+//
+//                getLocationPermission()
+//            }
+//        }
     }
 
 
@@ -239,7 +265,7 @@ class HomeFragment : Fragment() {
         if (activity?.let {
                 ActivityCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
             } != PackageManager.PERMISSION_GRANTED &&
             activity?.let {
                 ActivityCompat.checkSelfPermission(
@@ -254,11 +280,11 @@ class HomeFragment : Fragment() {
 
             if (it!=null){
                 Common.mLastLocation = it
-                val myAddress = LatLng(Common.mLastLocation.latitude, Common.mLastLocation.longitude)
+                val myAddress = LatLng(it.latitude, it.longitude)
                 getMyEndereco = getMyAddress(myAddress)
 
                 Log.d(TAG, String.format("Your location was changed : %f / %f",
-                    it.latitude, it.longitude));
+                    it.latitude, it.longitude))
 
                 txtMyLocation.text = getMyEndereco
 //                txtMyLocation.visibility = View.VISIBLE
@@ -266,7 +292,9 @@ class HomeFragment : Fragment() {
 
 
             }else{
-                Log.d(TAG, "Can not get your location")
+                Log.d(TAG, "Can not get your location with it.lastLocation")
+
+
             }
 
 
@@ -311,10 +339,13 @@ class HomeFragment : Fragment() {
          * device. The result of the permission request is handled by a callback,
          * onRequestPermissionsResult.
          */
+
+
+
         if (activity?.let {
                 ContextCompat.checkSelfPermission(
                     it,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                    Manifest.permission.ACCESS_COARSE_LOCATION)
             } == PackageManager.PERMISSION_GRANTED &&
             activity?.let {
                 ActivityCompat.checkSelfPermission(
@@ -322,10 +353,15 @@ class HomeFragment : Fragment() {
                     Manifest.permission.ACCESS_FINE_LOCATION)
             } == PackageManager.PERMISSION_GRANTED) {
             mLocationPermissionGranted = true
+            Log.d(TAG, "getLocationPermission: Granted")
+
             getMyLoCation()
 
 
+
+
         } else {
+            Log.d(TAG, "getLocationPermission: Need that permission")
             activity?.let {
                 ActivityCompat.requestPermissions(
                     it,
@@ -337,7 +373,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun isServicesOK():Boolean{
-        Log.d(TAG, "isServicesOK: checking google services version");
+        Log.d(TAG, "isServicesOK: checking google services version")
 
         val available: Int = context?.let {
             GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(
@@ -347,12 +383,12 @@ class HomeFragment : Fragment() {
 
         if(available == ConnectionResult.SUCCESS){
             //everything is fine and the user can make map requests
-            Log.d(TAG, "isServicesOK: Google Play Services is working");
+            Log.d(TAG, "isServicesOK: Google Play Services is working")
             return true
         }
         else if(GoogleApiAvailability.getInstance().isUserResolvableError(available)){
             //an error occured but we can resolve it
-            Log.d(TAG, "isServicesOK: an error occured but we can fix it");
+            Log.d(TAG, "isServicesOK: an error occured but we can fix it")
             val dialog = activity?.let { GoogleApiAvailability.getInstance().getErrorDialog(it, available, Common.ERROR_DIALOG_REQUEST) }
             dialog?.show()
 
@@ -367,7 +403,7 @@ class HomeFragment : Fragment() {
         var address =""
         try {
             val geo = Geocoder(context, Locale.getDefault())
-            var addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
+            val addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
             if (addresses.isEmpty()) {
                 Log.d("TAG_Mapa", "Waiting for Location")
 
@@ -384,48 +420,27 @@ class HomeFragment : Fragment() {
     }
 
     private fun buildAlertMessageNoGps() {
-        var message = getString(R.string.msg_ligar_gps)
 
-        if (activity!=null){
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-                val builder = activity?.let { androidx.appcompat.app.AlertDialog.Builder(it) }
-
-                builder?.setMessage(message)
-
-                builder?.setNegativeButton("Cancelar", DialogInterface.OnClickListener() {
-
-                        dialog, id -> dialog.cancel()
-
-                })
-
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
-
-                        dialog, id -> dialog.cancel()
-
-                })
-
-                builder?.show()
-            } else {
-
-                val builder = activity?.let { AlertDialog.Builder(it) }
-                builder?.setMessage(message)
-
-                builder?.setNegativeButton("Cancelar", DialogInterface.OnClickListener() {
-
-                        dialog, id -> dialog.cancel()
-
-                })
-
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
-                        dialog, id -> dialog.cancel()
-
-                })
-
-
-                builder?.show()
-            }
+        txtAlertTitle.text = ""
+        txtAlertTitle.visibility = View.GONE
+        txtAlertMsg.text = getString(R.string.msg_ligar_gps)
+        dialog_btn_cancel.setOnClickListener {
+            dialogLayoutAlertDialog.cancel()
         }
+
+        dialog_btn_ok.setOnClickListener {
+            dialogLayoutAlertDialog.cancel()
+            val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
+
+//            resultLauncher.launch(enableGpsIntent)
+        }
+
+        if (!dialogLayoutAlertDialog.isShowing)
+            dialogLayoutAlertDialog.show()
+
+
+
     }
 
 
@@ -440,13 +455,19 @@ class HomeFragment : Fragment() {
     ) {
 
         mLocationPermissionGranted = false
+        Log.d(TAG, "onRequestPermissionsResult: Need that permission")
         if (requestCode == Common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION){
             // If request is cancelled, the result arrays are empty.
             if (grantResults.isNotEmpty()
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 mLocationPermissionGranted = true
 
+                Log.d(TAG, "onRequestPermissionsResult: Granted")
+
+
+
             }
+
 
         }
 //        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -461,14 +482,27 @@ class HomeFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == Common.PERMISSIONS_REQUEST_ENABLE_GPS){
+
+            Log.d(TAG, "onActivityResult: data "+data.toString())
+
             if(mLocationPermissionGranted){
                 getMyLoCation()
             }
             else{
                 getLocationPermission()
             }
+
+
+
         }
     }
+
+//    var resultLauncher = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()) { result ->
+//        if (result.resultCode == Activity.RESULT_OK) {
+//            // parse result and perform action
+//        }
+//    }
 
     private val sliderRunnable = Runnable {
         viewPager.currentItem = viewPager.currentItem + 1
@@ -480,11 +514,13 @@ class HomeFragment : Fragment() {
 
 
     override fun onResume() {
+        Log.d(TAG, "onResume:")
         super.onResume()
         slideHandler.postDelayed(
             sliderRunnable,
             TIME_DELAY
         ) // Slide duration 5 seconds
+
 
         if(checkMapServices()){
             if(mLocationPermissionGranted){
@@ -492,8 +528,21 @@ class HomeFragment : Fragment() {
             }else{
                 getLocationPermission()
             }
-
         }
+
+
+
+//        if(checkMapServices()){
+//            if(mLocationPermissionGranted){
+//                getMyLoCation()
+//            }
+//            else{
+//                getLocationPermission()
+//
+//            }
+//        }
+
+
 
     }
 

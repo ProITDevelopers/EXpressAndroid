@@ -31,7 +31,7 @@ class CadastroActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MetodosUsados.transparentStatusBar(this);
+        MetodosUsados.transparentStatusBar(this)
 //        setContentView(R.layout.activity_cadastro)
         binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -52,7 +52,7 @@ class CadastroActivity : AppCompatActivity() {
         val adapter = ViewPagerFragmentsAdapter(supportFragmentManager)
 
         // add your fragments
-        adapter.addFrag(RegistroFragment(), getString(R.string.cadastro_tab_registrar));
+        adapter.addFrag(RegistroFragment(), getString(R.string.cadastro_tab_registrar))
         adapter.addFrag(LoginFragment(), getString(R.string.cadastro_tab_login))
 
         // set adapter on viewpager
@@ -74,7 +74,7 @@ class CadastroActivity : AppCompatActivity() {
                     imgCadastro.setImageResource(R.drawable.registrar)
                     txtCadastro.setText(R.string.cadastro_text_registro)
                 }else{
-                    imgCadastro.setImageResource(R.drawable.login);
+                    imgCadastro.setImageResource(R.drawable.login)
                     txtCadastro.setText(R.string.cadastro_text_login)
                 }
 

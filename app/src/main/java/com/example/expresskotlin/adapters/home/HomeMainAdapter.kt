@@ -46,17 +46,14 @@ class HomeMainAdapter(context: Context) : RecyclerView.Adapter<HomeMainAdapter.V
 
         // sets the text to the textview from our itemHolder class
         holder.sectionNameTextView.text = sectionTitle
-        val childRecyclerAdapter = context?.let { HomeMainChildAdapter(it) }
-        childRecyclerAdapter?.setData(estabList)
+        val childRecyclerAdapter = HomeMainChildAdapter(this.context)
+        childRecyclerAdapter.setData(estabList)
 //        holder.childRecyclerView.setHasFixedSize(true)
         holder.childRecyclerView.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
         holder.childRecyclerView.adapter = childRecyclerAdapter
 
         holder.sectionNameTextView.setOnClickListener {
-            context?.let { it1 ->
-//                MetodosUsados.mostrarMensagem(it1,sectionTitle.toString())
-                EventBus.getDefault().postSticky(CategoriaEstabClick(true, section))
-            }
+            EventBus.getDefault().postSticky(CategoriaEstabClick(true, section))
         }
     }
 

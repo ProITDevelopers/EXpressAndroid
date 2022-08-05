@@ -39,7 +39,7 @@ class PedidosAtivosFragment : Fragment() {
     }
 
     private fun loadAllAtivos() {
-        meusPedidosList= ArrayList<MeusPedidos>()
+        meusPedidosList= ArrayList()
         meusPedidosList.add(MeusPedidos("2354756853121","27/07/2022","Em Espera"))
         meusPedidosList.add(MeusPedidos("2354756853122","27/07/2022","Em Espera"))
         meusPedidosList.add(MeusPedidos("2354756853123","27/07/2022","Em Espera"))

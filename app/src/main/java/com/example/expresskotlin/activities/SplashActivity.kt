@@ -66,13 +66,13 @@ class SplashActivity : AppCompatActivity() {
         mainHandler = Handler()
         txtHandler = Handler()
 
-        txtRunnable = Runnable() {
+        txtRunnable = Runnable {
 
            run {
                txtCopyright.visibility = View.VISIBLE
                txtCopyright.animation = txtAnim
 
-               mainRunnable = Runnable() {
+               mainRunnable = Runnable {
 
                    run{
                        launchHomeScreen()
@@ -82,7 +82,7 @@ class SplashActivity : AppCompatActivity() {
            }
 
         }
-        txtHandler.postDelayed(txtRunnable, 1200);
+        txtHandler.postDelayed(txtRunnable, 1200)
 
 
     }

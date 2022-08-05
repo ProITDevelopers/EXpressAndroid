@@ -39,7 +39,7 @@ class CarteiraSaidaFragment : Fragment() {
     }
 
     private fun loadAllAtivos() {
-        meusPedidosList= ArrayList<MeusPedidos>()
+        meusPedidosList= ArrayList()
         meusPedidosList.add(MeusPedidos("Compra 1","27/07/2022","100 Akz"))
         meusPedidosList.add(MeusPedidos("Compra 2","26/07/2022","200 Akz"))
         meusPedidosList.add(MeusPedidos("Compra 3","25/07/2022","300 Akz"))

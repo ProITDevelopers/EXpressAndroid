@@ -33,7 +33,7 @@ class EditarPerfilFragment : Fragment() {
 
     private lateinit var bi:String
     private lateinit var dataNasc:String
-    private lateinit var data_toShow:String
+    private lateinit var dataToShow:String
     private lateinit var date:String
 
     private  var minDateMilliseconds:Long = 0
@@ -111,7 +111,7 @@ class EditarPerfilFragment : Fragment() {
         }
 
         mDateSetListener = DatePickerDialog.OnDateSetListener { datePicker, ano, mes, dia ->
-            var mes = mes + 1
+            val mes = mes + 1
 
             var monthString:String = mes.toString()
             var dayString:String = dia.toString()
@@ -125,13 +125,13 @@ class EditarPerfilFragment : Fragment() {
 
 
 //            date = ano + "-" + mes + "-" + dia;
-            data_toShow = StringBuilder().append(dayString).append("/")
+            dataToShow = StringBuilder().append(dayString).append("/")
                 .append(monthString).append("/").append(ano).toString()
 
             date = StringBuilder().append(ano).append("-").append(monthString).append("-")
                 .append(dayString).toString()
 
-            txtDataNasc.text = data_toShow
+            txtDataNasc.text = dataToShow
 
         }
 

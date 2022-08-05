@@ -44,23 +44,20 @@ class EstabMainAdapter(context: Context) : RecyclerView.Adapter<EstabMainAdapter
     // binds the list items to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        var section = menuCatProdutosList[position]
-        var sectionTitle = section.titulo
-        var produtosList = section.produtosList
+        val section = menuCatProdutosList[position]
+        val sectionTitle = section.titulo
+        val produtosList = section.produtosList
 
         // sets the text to the textview from our itemHolder class
         holder.sectionNameTextView.text = sectionTitle
-        val childRecyclerAdapter = context?.let { EstabMainChildAdapter(it) }
-        childRecyclerAdapter?.setData(estabTitulo.toString(),produtosList)
+        val childRecyclerAdapter = EstabMainChildAdapter(this.context)
+        childRecyclerAdapter.setData(estabTitulo,produtosList)
 //        holder.childRecyclerView.setHasFixedSize(true)
         holder.childRecyclerView.layoutManager = LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
         holder.childRecyclerView.adapter = childRecyclerAdapter
 
         holder.sectionNameTextView.setOnClickListener {
-            context?.let { it1 ->
-//                MetodosUsados.mostrarMensagem(it1,sectionTitle.toString())
-                EventBus.getDefault().postSticky(EstabCatClick(true, estabTitulo,section))
-            }
+            EventBus.getDefault().postSticky(EstabCatClick(true, estabTitulo,section))
         }
     }
 

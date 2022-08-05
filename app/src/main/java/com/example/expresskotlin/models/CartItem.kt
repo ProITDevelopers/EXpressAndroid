@@ -5,14 +5,11 @@ import java.util.*
 
 class CartItem : Serializable {
 
-    var idCart =  UUID.randomUUID()
+    private var idCart =  UUID.randomUUID()
     var cartItemQuantity: Int = 0
     var produto =  Produtos()
 
-    constructor()
-    {
 
-    }
 
     constructor(produto: Produtos, cartItemQuantity:Int)
     {

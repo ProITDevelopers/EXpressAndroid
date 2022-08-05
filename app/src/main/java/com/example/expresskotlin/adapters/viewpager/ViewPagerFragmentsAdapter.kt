@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 class ViewPagerFragmentsAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
 
 
-    val mFragmentList: MutableList<Fragment> = ArrayList<Fragment>()
-    val mFragmentTitleList: MutableList<String> = ArrayList<String>()
+    val mFragmentList: MutableList<Fragment> = ArrayList()
+    val mFragmentTitleList: MutableList<String> = ArrayList()
 
 
 
@@ -20,7 +20,7 @@ class ViewPagerFragmentsAdapter(fm: FragmentManager): FragmentStatePagerAdapter(
         return mFragmentList.size
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
+    override fun getPageTitle(position: Int): CharSequence {
         return mFragmentTitleList[position]
     }
 

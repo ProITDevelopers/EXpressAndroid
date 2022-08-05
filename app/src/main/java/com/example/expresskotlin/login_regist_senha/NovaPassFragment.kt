@@ -46,7 +46,7 @@ class NovaPassFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentNovaPassBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -59,31 +59,31 @@ class NovaPassFragment : Fragment() {
     }
 
     private fun mensagemSucesso() {
-        var message =getString(R.string.feedback_sucesso);
+        var message =getString(R.string.feedback_sucesso)
 
         if (activity!=null){
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 
                 val builder = activity?.let { androidx.appcompat.app.AlertDialog.Builder(it) }
 
-                builder?.setMessage(message);
+                builder?.setMessage(message)
 
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
+                builder?.setPositiveButton("OK") {
 
                         dialog, id -> dialog.cancel()
                     activity?.finish()
-                })
+                }
 
                 builder?.show()
             } else {
 
                 val builder = activity?.let { AlertDialog.Builder(it) }
-                builder?.setMessage(message);
+                builder?.setMessage(message)
 
-                builder?.setPositiveButton("OK", DialogInterface.OnClickListener() {
+                builder?.setPositiveButton("OK") {
                         dialog, id -> dialog.cancel()
                     activity?.finish()
-                });
+                }
 
 
                 builder?.show()

@@ -39,7 +39,7 @@ class PedidosHistoricoFragment : Fragment() {
     }
 
     private fun loadAllHistoricos() {
-        meusPedidosList= ArrayList<MeusPedidos>()
+        meusPedidosList= ArrayList()
         meusPedidosList.add(MeusPedidos("2354756853128","27/07/2022","Entregue"))
         meusPedidosList.add(MeusPedidos("2354756853127","26/07/2022","Cancelado"))
         meusPedidosList.add(MeusPedidos("2354756853126","25/07/2022","Entregue"))

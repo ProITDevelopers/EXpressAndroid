@@ -67,7 +67,7 @@ class MeusEnderecosFragment : Fragment() {
     }
 
     private fun loadMyAddress() {
-        myAddressList= ArrayList<MyAddress>()
+        myAddressList= ArrayList()
         myAddressList.add(MyAddress("Casa","Rua OmegaX, Casa Y, Luanda"))
         myAddressList.add(MyAddress("Trabalho","Rua OmegaX, Casa Y, Luanda"))
         myAddressList.add(MyAddress("Favorito 1","Rua OmegaX, Casa Y, Luanda"))
