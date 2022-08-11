@@ -6,7 +6,7 @@ import androidx.multidex.MultiDex
 
 class ExpressApplication : Application() {
 
-    lateinit var mInstance : ExpressApplication
+    private lateinit var mInstance : ExpressApplication
 
     override fun onCreate() {
         super.onCreate()
