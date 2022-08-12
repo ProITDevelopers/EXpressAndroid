@@ -8,7 +8,6 @@ class ExpressApplication : Application() {
 
     private lateinit var mInstance : ExpressApplication
 
-
     override fun onCreate() {
         super.onCreate()
         mInstance = this
