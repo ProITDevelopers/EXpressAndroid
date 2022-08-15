@@ -53,43 +53,13 @@ class NovaPassFragment : Fragment() {
 
         val btnOK : Button = binding.btnOK
         btnOK.setOnClickListener {
-            mensagemSucesso()
+            activity?.finish()
+
         }
         return root
     }
 
-    private fun mensagemSucesso() {
-        var message =getString(R.string.feedback_sucesso)
-
-        if (activity!=null){
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-                val builder = activity?.let { androidx.appcompat.app.AlertDialog.Builder(it) }
-
-                builder?.setMessage(message)
-
-                builder?.setPositiveButton("OK") {
-
-                        dialog, id -> dialog.cancel()
-                    activity?.finish()
-                }
-
-                builder?.show()
-            } else {
-
-                val builder = activity?.let { AlertDialog.Builder(it) }
-                builder?.setMessage(message)
-
-                builder?.setPositiveButton("OK") {
-                        dialog, id -> dialog.cancel()
-                    activity?.finish()
-                }
-
-
-                builder?.show()
-            }
-        }
-    }
+   
 
     override fun onDestroyView() {
         super.onDestroyView()

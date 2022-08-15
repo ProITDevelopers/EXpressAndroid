@@ -79,7 +79,7 @@ class LoadData {
 
             menuEstabelecimentoList.add(Estabelecimento(1,"Bella Pizza","Restaurante",
                 "3,4 Km",getAllMenuCatProdutosPizzaList(),
-                "https://flyingdelivery.pk/wp-content/uploads/2021/11/pizza-recipe-pizza-to-make-at-home-quick-and-easy-recipes.jpg"))
+                "https://media.gazetadopovo.com.br/2021/07/09163516/receita-massa-pizza-bigstock-960x540.jpg"))
             menuEstabelecimentoList.add(Estabelecimento(2,"Pizzarella","Lanchonete",
                 "4,1 Km",getAllMenuCatProdutosPizzaList(),
                 "https://st.depositphotos.com/1003814/5052/i/950/depositphotos_50523105-stock-photo-pizza-with-tomatoes.jpg"))
