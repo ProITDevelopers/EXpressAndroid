@@ -9,7 +9,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.expresskotlin.databinding.ActivityMainBinding
 import com.example.expresskotlin.eventbus.*
 import com.example.expresskotlin.helpers.LoadData
-import com.example.expresskotlin.ui.carrinho.CarrinhoFragment
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.greenrobot.eventbus.EventBus

@@ -1,7 +1,6 @@
 package com.example.expresskotlin.helpers
 
 import com.example.expresskotlin.models.*
-import com.example.expresskotlin.ui.carrinho.CarrinhoFragment
 
 class LoadData {
 

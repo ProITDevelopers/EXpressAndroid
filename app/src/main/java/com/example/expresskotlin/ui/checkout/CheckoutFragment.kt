@@ -1,26 +1,12 @@
 package com.example.expresskotlin.ui.checkout
 
-import android.Manifest
 import android.app.Dialog
-import android.content.Context
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.content.res.Resources
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
-import android.location.Address
-import android.location.Geocoder
-import android.location.LocationManager
 import android.os.Bundle
-import android.os.Looper
-import android.provider.Settings
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,25 +16,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentCheckoutBinding
-import com.example.expresskotlin.helpers.Common
 import com.example.expresskotlin.helpers.MetodosUsados
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-
 import org.greenrobot.eventbus.EventBus
-import java.util.*
 
 
 class CheckoutFragment : Fragment(){

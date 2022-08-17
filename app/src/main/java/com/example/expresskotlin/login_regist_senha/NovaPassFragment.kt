@@ -1,15 +1,11 @@
 package com.example.expresskotlin.login_regist_senha
 
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentNovaPassBinding
 
 

@@ -21,7 +21,6 @@ import com.example.expresskotlin.eventbus.CartCheckClick
 import com.example.expresskotlin.helpers.LoadData
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.CartItem
-import com.example.expresskotlin.models.Produtos
 import org.greenrobot.eventbus.EventBus
 
 
