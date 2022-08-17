@@ -48,4 +48,5 @@
     <color name="tab_icon_selected_color">@color/white</color>
     <color name="tab_icon_unselected_color">#2e6179</color>
     <color name="tab_indicator_color">@color/white</color>
+    <color name="badge_notification_bkg_color">@color/orange</color>
 </resources>

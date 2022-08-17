@@ -1,9 +1,7 @@
 package com.example.expresskotlin.helpers
 
-import com.example.expresskotlin.models.Estabelecimento
-import com.example.expresskotlin.models.MenuCatProdutos
-import com.example.expresskotlin.models.MenuCategoria
-import com.example.expresskotlin.models.Produtos
+import com.example.expresskotlin.models.*
+import com.example.expresskotlin.ui.carrinho.CarrinhoFragment
 
 class LoadData {
 
@@ -346,10 +344,10 @@ class LoadData {
         }
 
         fun getALLCervejaList():ArrayList<Produtos>{
-            var cervejaList = ArrayList<Produtos>()
+            val cervejaList = ArrayList<Produtos>()
 
             for (item in 0 until getAllProdutos().size){
-                var produto = getAllProdutos()[item]
+                val produto = getAllProdutos()[item]
 
                 if (produto.tipo.equals("cerveja"))
                     cervejaList.add(produto)
@@ -357,6 +355,58 @@ class LoadData {
             }
 
             return cervejaList
+        }
+
+        //===============================ALL CARTLIST=================================================
+        //============================================================================================
+
+        fun loadCartItems():ArrayList<CartItem> {
+            val cartItemList = ArrayList<CartItem>()
+            val produtosList = ArrayList<Produtos>()
+
+            //===============================HAMBURGERS=================================================
+            produtosList.add(
+                Produtos(1,"Mad Burger",4500.00,"burguer",
+                    "https://thumbs.dreamstime.com/b/big-grilled-chicken-burger-double-cutlet-cheese-wooden-background-side-view-close-up-208658240.jpg")
+            )
+
+
+            produtosList.add(
+                Produtos(10,"Coca-Cola",600.00,"refrigerante",
+                    "https://www.drogariaminasbrasil.com.br/media/catalog/product/r/e/refrigerante_coca_cola_lata_350ml.jpg")
+            )
+
+
+            produtosList.add(
+                Produtos(19,"Slicy",300.00,"pizza",
+                    "https://pizzariadesucesso.com/wp-content/uploads/2018/05/pepperoni-pizza.jpg")
+            )
+
+
+            produtosList.add(
+                Produtos(26,"Creamberry",240.00,"gelado",
+                    "https://historicvirginiatravel.com/wp-content/uploads/2022/03/ice-cream-sundae.jpg")
+            )
+
+
+            produtosList.add(
+                Produtos(30,"Frango Frito",540.00,"churrasco",
+                    "https://media.socialdeal.nl/bedrijf/bbq-en-grill-hoorn-20011015361090.jpg")
+            )
+
+
+            produtosList.add(
+                Produtos(36,"Bud Light",640.00,"cerveja",
+                    "https://www.beeruniversestore.com/wp-content/uploads/2020/12/brew_hero-image-scaled-e1620826370837.jpg")
+            )
+
+
+
+            for (produto in produtosList){
+               cartItemList.add(CartItem(produto,MetodosUsados.getRandomNumbers(1,10)))
+            }
+            return cartItemList
+
         }
 
     }

@@ -3,12 +3,15 @@ package com.example.expresskotlin.ui.mapa
 
 import android.Manifest
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -19,6 +22,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -67,6 +72,13 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     private val permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION)
 
+    //DIALOG_LAYOUT_ALERTA_GPS
+    private lateinit var dialogLayoutAlertDialog: Dialog
+    private lateinit var txtAlertTitle : TextView
+    private lateinit var txtAlertMsg : TextView
+    private lateinit var dialog_btn_cancel : Button
+    private lateinit var dialog_btn_ok : Button
+
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -85,14 +97,30 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun initViews() {
+
+        //-------------------------------------------------------------//
+        //-------------------------------------------------------------//
+        //DIALOG_LAYOUT_ALERTA_GPS
+        dialogLayoutAlertDialog = context?.let { Dialog(it) }!!
+        dialogLayoutAlertDialog.setContentView(R.layout.layout_alert_popup)
+        dialogLayoutAlertDialog.setCancelable(false)
+        if (dialogLayoutAlertDialog.window!=null)
+            dialogLayoutAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        txtAlertTitle = dialogLayoutAlertDialog.findViewById(R.id.txtAlertTitle)
+        txtAlertMsg = dialogLayoutAlertDialog.findViewById(R.id.txtAlertMsg)
+        dialog_btn_cancel = dialogLayoutAlertDialog.findViewById(R.id.dialog_btn_cancel)
+        dialog_btn_ok = dialogLayoutAlertDialog.findViewById(R.id.dialog_btn_ok)
+
+        mapFragment = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
+        mapFragment.getMapAsync(this)
+
+
         fusedLocationProviderClient = context?.let {
             LocationServices.getFusedLocationProviderClient(
                 it
             )
         }!!
-        mapFragment = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
-        mapFragment.getMapAsync(this)
-
 
 
         if(checkMapServices()){
@@ -104,6 +132,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
 
         }
 
+
+
     }
 
     private fun getMyLoCation() {
@@ -112,30 +142,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         displayLocation()
     }
 
-    private fun setUpLocation() {
 
-        if (activity?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_COARSE_LOCATION)
-            } != PackageManager.PERMISSION_GRANTED &&
-            activity?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-            } != PackageManager.PERMISSION_GRANTED) {
-
-            //Request runtime permission
-            activity?.let { ActivityCompat.requestPermissions(it, permissionsArray, Common.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) }
-        } else {
-
-
-            buildLocationCallBack()
-            createLocationRequest()
-            displayLocation()
-
-        }
-    }
 
     private fun buildLocationCallBack() {
 
@@ -357,52 +364,23 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun buildAlertMessageNoGps() {
-        val message = getString(R.string.msg_ligar_gps)
-
-        if (activity!=null){
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-
-                val builder = activity?.let { androidx.appcompat.app.AlertDialog.Builder(it) }
-
-                builder?.setMessage(message)
-
-                builder?.setNegativeButton("Cancelar") {
-
-                        dialog, id -> dialog.cancel()
-
-                }
-
-                builder?.setPositiveButton("OK") {
-
-                        dialog, id -> dialog.cancel()
-                    val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
-
-                }
-
-                builder?.show()
-            } else {
-
-                val builder = activity?.let { AlertDialog.Builder(it) }
-                builder?.setMessage(message)
-
-                builder?.setNegativeButton("Cancelar") {
-
-                        dialog, id -> dialog.cancel()
-
-                }
-
-                builder?.setPositiveButton("OK") {
-                        dialog, id -> dialog.cancel()
-                    val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                    startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
-
-                }
-
-
-                builder?.show()
-            }
+        txtAlertTitle.text = ""
+        txtAlertTitle.visibility = View.GONE
+        txtAlertMsg.text = getString(R.string.msg_ligar_gps)
+        dialog_btn_cancel.setOnClickListener {
+            dialogLayoutAlertDialog.cancel()
         }
+
+        dialog_btn_ok.setOnClickListener {
+            dialogLayoutAlertDialog.cancel()
+            val enableGpsIntent = Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivityForResult(enableGpsIntent, Common.PERMISSIONS_REQUEST_ENABLE_GPS)
+
+//            resultLauncher.launch(enableGpsIntent)
+        }
+
+        if (!dialogLayoutAlertDialog.isShowing)
+            dialogLayoutAlertDialog.show()
     }
 
 

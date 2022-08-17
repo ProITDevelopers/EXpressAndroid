@@ -88,9 +88,9 @@ class HomeFragment : Fragment() {
     private val permissionsArray = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION,
         Manifest.permission.ACCESS_COARSE_LOCATION)
 
-    private lateinit var builder: AlertDialog
 
-    //DIALOG_LAYOUT_CONFIRMAR_PEDIDO
+
+    //DIALOG_LAYOUT_ALERTA_GPS
     private lateinit var dialogLayoutAlertDialog: Dialog
     private lateinit var txtAlertTitle : TextView
     private lateinit var txtAlertMsg : TextView
@@ -141,7 +141,7 @@ class HomeFragment : Fragment() {
 
         //-------------------------------------------------------------//
         //-------------------------------------------------------------//
-        //DIALOG_LAYOUT_CONFIRMAR_PROCESSO
+        //DIALOG_LAYOUT_ALERTA_GPS
         dialogLayoutAlertDialog = context?.let { Dialog(it) }!!
         dialogLayoutAlertDialog.setContentView(R.layout.layout_alert_popup)
         dialogLayoutAlertDialog.setCancelable(false)
@@ -230,14 +230,14 @@ class HomeFragment : Fragment() {
         }!!
 
 
-//        if(checkMapServices()){
-//            if(mLocationPermissionGranted){
-//                getMyLoCation()
-//            }else{
-//
-//                getLocationPermission()
-//            }
-//        }
+        if(checkMapServices()){
+            if(mLocationPermissionGranted){
+                getMyLoCation()
+            }else{
+
+                getLocationPermission()
+            }
+        }
     }
 
 
@@ -522,13 +522,13 @@ class HomeFragment : Fragment() {
         ) // Slide duration 5 seconds
 
 
-        if(checkMapServices()){
-            if(mLocationPermissionGranted){
-                getMyLoCation()
-            }else{
-                getLocationPermission()
-            }
-        }
+//        if(checkMapServices()){
+//            if(mLocationPermissionGranted){
+//                getMyLoCation()
+//            }else{
+//                getLocationPermission()
+//            }
+//        }
 
 
 

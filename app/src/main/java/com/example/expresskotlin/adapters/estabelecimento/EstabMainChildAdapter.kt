@@ -2,6 +2,7 @@ package com.example.expresskotlin.adapters.estabelecimento
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -99,22 +100,33 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
 
         holder.cardView.setOnClickListener {
             context?.let { it1 ->
-//                MetodosUsados.mostrarMensagem(it1,produtos.titulo.toString())
+
                 EventBus.getDefault().postSticky(ProdutoClick(true, estabTitulo,produto))
             }
+        }
+
+        if (produto.quantity>0){
+
+            holder.txtProdQuantity.text = produto.quantity.toString()
+
+            holder.relativeAddItemCart.visibility = View.GONE
+            holder.linearProdCount.visibility = View.VISIBLE
         }
 
         holder.relativeAddItemCart.setOnClickListener {
             context?.let { it1 ->
 
-
+//                MetodosUsados.mostrarMensagem(it1,produto.titulo.toString())
                 if (produto.quantity <= 0){
                     produto.quantity = 1
                     holder.txtProdQuantity.text = produto.quantity.toString()
 
                     holder.relativeAddItemCart.visibility = View.GONE
                     holder.linearProdCount.visibility = View.VISIBLE
+                    Log.d("TAG_prodCard", "onBindViewHolder: ${produto.titulo}"+" quantity: ${produto.quantity}")
                 }
+
+
 
             }
         }
@@ -134,7 +146,7 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
 
                     holder.txtProdQuantity.text = produto.quantity.toString()
                 }
-
+                notifyDataSetChanged()
             }
 
         }
@@ -151,7 +163,7 @@ class EstabMainChildAdapter(context: Context) : RecyclerView.Adapter<EstabMainCh
                 else{
                     holder.txtProdQuantity.text = produto.quantity.toString()
                 }
-
+                notifyDataSetChanged()
             }
 
         }

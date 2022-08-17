@@ -96,6 +96,13 @@ class ProdutosAdapter(context: Context) : RecyclerView.Adapter<ProdutosAdapter.V
         holder.txtProdTitle.text = produto.titulo
         holder.txtProdPrice.text = StringBuilder(produto.preco.toString()).append(" Akz").toString()
 
+        if (produto.quantity>0){
+
+            holder.txtProdQuantity.text = produto.quantity.toString()
+
+            holder.txtAddItemCart.visibility = View.GONE
+            holder.linearProdCount.visibility = View.VISIBLE
+        }
 
         holder.cardView.setOnClickListener {
             context?.let { it1 ->

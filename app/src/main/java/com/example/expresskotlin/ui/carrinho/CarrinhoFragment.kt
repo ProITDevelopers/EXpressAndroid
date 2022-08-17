@@ -18,6 +18,7 @@ import com.example.expresskotlin.R
 import com.example.expresskotlin.adapters.CarrinhoAdapter
 import com.example.expresskotlin.databinding.FragmentCarrinhoBinding
 import com.example.expresskotlin.eventbus.CartCheckClick
+import com.example.expresskotlin.helpers.LoadData
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.example.expresskotlin.models.CartItem
 import com.example.expresskotlin.models.Produtos
@@ -32,9 +33,7 @@ class CarrinhoFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    companion object {
-        var cartItemList = ArrayList<CartItem>()
-    }
+
     private lateinit var mRecyclerView : RecyclerView
 
     private lateinit var txtSub : TextView
@@ -61,11 +60,7 @@ class CarrinhoFragment : Fragment() {
 
         _binding = FragmentCarrinhoBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        loadCartItems()
-        val textView: TextView = binding.textCarrinho
-        carrinhoViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = cartItemList.toString()
-        }
+
         initViews()
         return root
     }
@@ -100,13 +95,13 @@ class CarrinhoFragment : Fragment() {
 
     private fun setUpRecyclerView() {
         val cartAdapter = context?.let { CarrinhoAdapter(it) }
-        cartAdapter?.setData(cartItemList)
+        cartAdapter?.setData(LoadData.loadCartItems())
 
         val myLinearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL,false)
 //        mRecyclerView?.setHasFixedSize(true)
         mRecyclerView.layoutManager = myLinearLayoutManager
         mRecyclerView.adapter = cartAdapter
-        setCartSubTotal(cartItemList)
+        setCartSubTotal(LoadData.loadCartItems())
 
         cartAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver() {
             override fun onChanged() {
@@ -166,53 +161,7 @@ class CarrinhoFragment : Fragment() {
         Toast.makeText(context, "Carrinho vazio", Toast.LENGTH_SHORT).show()
     }
 
-    private fun loadCartItems(){
-        cartItemList.clear()
-        val produtosList = ArrayList<Produtos>()
 
-        //===============================HAMBURGERS=================================================
-        produtosList.add(
-            Produtos(1,"Mad Burger",4500.00,"burguer",
-            "https://thumbs.dreamstime.com/b/big-grilled-chicken-burger-double-cutlet-cheese-wooden-background-side-view-close-up-208658240.jpg")
-        )
-
-
-        produtosList.add(
-            Produtos(10,"Coca-Cola",600.00,"refrigerante",
-            "https://www.drogariaminasbrasil.com.br/media/catalog/product/r/e/refrigerante_coca_cola_lata_350ml.jpg")
-        )
-
-
-        produtosList.add(
-            Produtos(19,"Slicy",300.00,"pizza",
-            "https://pizzariadesucesso.com/wp-content/uploads/2018/05/pepperoni-pizza.jpg")
-        )
-
-
-        produtosList.add(
-            Produtos(26,"Creamberry",240.00,"gelado",
-            "https://historicvirginiatravel.com/wp-content/uploads/2022/03/ice-cream-sundae.jpg")
-        )
-
-
-        produtosList.add(
-            Produtos(30,"Frango Frito",540.00,"churrasco",
-            "https://media.socialdeal.nl/bedrijf/bbq-en-grill-hoorn-20011015361090.jpg")
-        )
-
-
-        produtosList.add(
-            Produtos(36,"Bud Light",640.00,"cerveja",
-            "https://www.beeruniversestore.com/wp-content/uploads/2020/12/brew_hero-image-scaled-e1620826370837.jpg")
-        )
-
-
-
-        for (produto in produtosList){
-            cartItemList.add(CartItem(produto,MetodosUsados.getRandomNumbers(1,10)))
-        }
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

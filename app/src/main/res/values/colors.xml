@@ -50,5 +50,6 @@
     <color name="tab_icon_selected_color">#2e6179</color>
     <color name="tab_icon_unselected_color">#adc9d6</color>
     <color name="tab_indicator_color">#2e6179</color>
+    <color name="badge_notification_bkg_color">@color/blue_dark</color>
 
 </resources>

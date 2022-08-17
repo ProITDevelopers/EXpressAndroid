@@ -2,11 +2,15 @@ package com.example.expresskotlin
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.example.expresskotlin.databinding.ActivityMainBinding
 import com.example.expresskotlin.eventbus.*
+import com.example.expresskotlin.helpers.LoadData
+import com.example.expresskotlin.ui.carrinho.CarrinhoFragment
+import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -15,6 +19,7 @@ import org.greenrobot.eventbus.ThreadMode
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
+        bottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         // Passing each menu ID as a set of Ids because each
@@ -35,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_perfil,R.id.editarPerfilFragment,R.id.atualizarPassFragment,
             R.id.myAddressFragment,R.id.meusPedidosFragment,R.id.carteiraFragment))
 //        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        bottomNavigationView.setupWithNavController(navController)
     }
 
     override fun onStart() {
@@ -46,6 +51,23 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         EventBus.getDefault().unregister(this)
         super.onStop()
+    }
+
+    override fun onResume() {
+        if(LoadData.loadCartItems()!=null){
+            val notificationCount = LoadData.loadCartItems().size
+            val menuItemId = bottomNavigationView.menu.getItem(2).itemId
+            if (notificationCount>0){
+                val badge: BadgeDrawable = bottomNavigationView.getOrCreateBadge(menuItemId)
+                badge.number = notificationCount
+                badge.badgeTextColor = ContextCompat.getColor(this, R.color.white)
+                badge.backgroundColor = ContextCompat.getColor(this, R.color.badge_notification_bkg_color)
+            }else{
+                bottomNavigationView.removeBadge(menuItemId)
+            }
+
+        }
+        super.onResume()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -300,7 +300,7 @@
                 android:layout_marginTop="32dp"
                 android:padding="5dp"
                 android:textStyle="bold"
-                android:textColor="@color/text_title_cardgrid_color"
+                android:textColor="@color/text_blue_normal_color"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/cardViewCarteira"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
@@ -324,7 +324,7 @@
                 android:text="500 Akz"
                 android:textSize="@dimen/text_normal_size"
                 android:padding="5dp"
-                android:textColor="@color/text_title_cardgrid_color"
+                android:textColor="@color/text_blue_normal_color"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/txtSubtotal"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
@@ -348,7 +348,7 @@
                 android:text="400 Akz"
                 android:textSize="@dimen/text_normal_size"
                 android:padding="5dp"
-                android:textColor="@color/text_title_cardgrid_color"
+                android:textColor="@color/text_blue_normal_color"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/txtTaxaEntrega"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>
@@ -387,7 +387,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:textStyle="bold"
-                android:textColor="@color/text_title_cardgrid_color"
+                android:textColor="@color/text_blue_normal_color"
                 android:fontFamily="@font/poppins_regular"
                 app:layout_constraintTop_toBottomOf="@+id/separator_view"
                 app:layout_constraintEnd_toStartOf="@+id/guideline_right"/>

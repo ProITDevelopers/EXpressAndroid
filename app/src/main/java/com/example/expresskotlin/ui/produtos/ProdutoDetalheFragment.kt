@@ -137,8 +137,15 @@ class ProdutoDetalheFragment  : Fragment() {
 
             txtProdTitle.text = produto.titulo
             txtProdPrice.text = StringBuilder(produto.preco.toString()).append(" Akz").toString()
+            txtProdQuantity.text = produto.quantity.toString()
+            quantity = produto.quantity
         }
 
+        if (quantity>0){
+
+            txtAddItemCart.text = "Adicionado"
+            relativeAddItemCart.isEnabled = false
+        }
         imgRemoveItem.setOnClickListener{
             context?.let { it1 ->
                 quantity--
@@ -172,7 +179,8 @@ class ProdutoDetalheFragment  : Fragment() {
                 else{
                     txtProdQuantity.text = quantity.toString()
                 }
-
+                txtAddItemCart.text = "Adicionado"
+                relativeAddItemCart.isEnabled = false
 
             }
 
