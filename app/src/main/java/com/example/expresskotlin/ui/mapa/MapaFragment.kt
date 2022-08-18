@@ -22,9 +22,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentMapaBinding
 import com.example.expresskotlin.helpers.Common
@@ -38,8 +40,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.util.*
 
+private const val ARG_PARAM1 = "destino"
 
-class MapaFragment : Fragment(), OnMapReadyCallback {
+class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
     private var TAG = "TAG_MapaFragment"
     private var _binding: FragmentMapaBinding? = null
@@ -51,7 +54,10 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapFragment: SupportMapFragment
     private lateinit var mMap: GoogleMap
     private lateinit var mUserMarker: Marker
+    private var mDestinationMarker: Marker?=null
     private lateinit var getMyEndereco: String
+    private lateinit var getMyDestination: String
+
 
 
 
@@ -74,6 +80,21 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
     private lateinit var txtAlertMsg : TextView
     private lateinit var dialog_btn_cancel : Button
     private lateinit var dialog_btn_ok : Button
+
+    private var mDestinationMarkerTitle: String? = null
+    private var subTotalPrice:Double= 0.0
+    private var totalDeTudoPrice:Double= 0.0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            mDestinationMarkerTitle = it.getString(ARG_PARAM1)
+            subTotalPrice = it.getDouble("subTotalPrice",0.0)
+            totalDeTudoPrice = it.getDouble("totalDeTudoPrice",0.0)
+
+            Log.d(TAG, "onCreate:\n mDestinationMarkerTitle - $mDestinationMarkerTitle\n subTotalPrice - $subTotalPrice\n totalDeTudoPrice - $totalDeTudoPrice")
+        }
+    }
 
 
     override fun onCreateView(
@@ -346,6 +367,27 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.isZoomControlsEnabled = true
         mMap.uiSettings.isZoomGesturesEnabled = true
 
+
+        mMap.setOnMapClickListener {
+            if (mDestinationMarkerTitle!=null){
+                if (mDestinationMarkerTitle.equals("Destino")){
+                    getMyDestination = getMyAddress(it)
+                    if (mDestinationMarker!=null)
+                        mDestinationMarker?.remove()
+
+                    mDestinationMarker = mMap.addMarker(MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .position(it)
+                        .title(mDestinationMarkerTitle)
+                        .snippet(getMyDestination)
+                    )!!
+
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 15.0f))
+                }
+            }
+        }
+        mMap.setOnInfoWindowClickListener(this)
+
         if (activity?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) } != PackageManager.PERMISSION_GRANTED &&
             activity?.let { ActivityCompat.checkSelfPermission(it, Manifest.permission.ACCESS_COARSE_LOCATION) } != PackageManager.PERMISSION_GRANTED) {
             return
@@ -443,5 +485,38 @@ class MapaFragment : Fragment(), OnMapReadyCallback {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onInfoWindowClick(marker: Marker) {
+
+
+        if (mDestinationMarkerTitle!=null){
+            if (mDestinationMarkerTitle.equals("Destino")){
+                var endereco:String=""
+                if (marker.title.equals("Minha posição")){
+                    Log.d(TAG, "onInfoWindowClick: "+marker.title)
+//            Toast.makeText(context, "onInfoWindowClick: "+marker.title, Toast.LENGTH_SHORT).show()
+                    endereco = getMyEndereco
+                }else{
+                    Log.d(TAG, "onInfoWindowClick: "+marker.title)
+                    endereco = getMyDestination
+                }
+
+                val bundle = Bundle()
+                bundle.putString("endereco", endereco)
+                bundle.putDouble("latitude", marker.position.latitude)
+                bundle.putDouble("longitude", marker.position.longitude)
+                bundle.putDouble("subTotalPrice", subTotalPrice)
+                bundle.putDouble("totalDeTudoPrice", totalDeTudoPrice)
+                val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+                navController.navigate(R.id.checkoutFragment, bundle)
+
+            }
+        }
+
+    }
+
+
+
+
 
 }

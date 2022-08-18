@@ -1,12 +1,15 @@
 package com.example.expresskotlin.ui.checkout
 
 import android.app.Dialog
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.UnderlineSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,18 +24,26 @@ import androidx.navigation.findNavController
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentCheckoutBinding
 import com.example.expresskotlin.helpers.MetodosUsados
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.*
 import org.greenrobot.eventbus.EventBus
 
 
-class CheckoutFragment : Fragment(){
+class CheckoutFragment : Fragment(), OnMapReadyCallback{
 
     private var TAG = "TAG_CheckoutFragment"
     private var _binding: FragmentCheckoutBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var mapFragment: SupportMapFragment
-
+    private lateinit var mMap: GoogleMap
+    private var mDestinationMarker: Marker?=null
+    var endereco: String?=null
+    var latitude: Double?=0.0
+    var longitude: Double?=0.0
 
     private lateinit var txtTPA: TextView
     private lateinit var txtCarteira: TextView
@@ -68,11 +79,21 @@ class CheckoutFragment : Fragment(){
     private lateinit var dialog_btn_confirm : Button
     private lateinit var dialog_txt_sendCode : TextView
 
+
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             subTotalPrice = it.getDouble("subTotalPrice",0.0)
             totalDeTudoPrice = it.getDouble("totalDeTudoPrice",0.0)
+
+            endereco = it.getString("endereco")
+            latitude = it.getDouble("latitude",0.0)
+            longitude = it.getDouble("longitude",0.0)
+            Log.d(TAG, "onCreate:\n subTotalPrice - $subTotalPrice\n totalDeTudoPrice - $totalDeTudoPrice\n endereco - $endereco\n latitude - $latitude\n longitude - $longitude")
         }
     }
 
@@ -157,10 +178,12 @@ class CheckoutFragment : Fragment(){
         spannableStringCode.setSpan(UnderlineSpan(),0,spannableStringCode.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         dialog_txt_sendCode.text = spannableStringCode
 
+        mapFragment = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
+        mapFragment.getMapAsync(this)
+
         setUpViews()
 
-        mapFragment = (childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment)
-//        mapFragment.getMapAsync(this)
+
 
 
 
@@ -169,6 +192,13 @@ class CheckoutFragment : Fragment(){
     private fun setUpViews() {
         binding.txtMyAddress.setOnClickListener {
 
+            val bundle = Bundle()
+            bundle.putString("destino", "Destino")
+            bundle.putDouble("subTotalPrice", subTotalPrice)
+            bundle.putDouble("totalDeTudoPrice", totalDeTudoPrice)
+
+            val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+            navController.navigate(R.id.navigation_mapa, bundle)
         }
         txtTPA.setOnClickListener {
             radioBtnTPA.isChecked = true
@@ -245,6 +275,8 @@ class CheckoutFragment : Fragment(){
             Toast.makeText(context, "gotoHome", Toast.LENGTH_SHORT).show()
             dialogLayoutConfirmarPedido.cancel()
         }
+
+
     }
 
     private fun showViews() {
@@ -275,6 +307,50 @@ class CheckoutFragment : Fragment(){
 
     }
 
+    override fun onMapReady(googleMap: GoogleMap) {
+
+        val nightModeFlags = (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK)
+
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+
+            try {
+
+                val isSucess:Boolean = googleMap.setMapStyle(
+                    activity?.let { MapStyleOptions.loadRawResourceStyle(it, R.raw.mapstyle_night) }
+                )
+
+                if (!isSucess)
+                    Log.d(TAG, "onMapReady_ERROR: Map style load failed !!!")
+            } catch ( ex: Resources.NotFoundException) {
+                ex.printStackTrace()
+            }
+        }
+        mMap = googleMap
+        mMap.uiSettings.isZoomControlsEnabled = true
+        mMap.uiSettings.isZoomGesturesEnabled = true
+
+        if (endereco!=null){
+            loadAllAvailableDriver(LatLng(latitude!!,longitude!!))
+        }
+
+    }
+
+    private fun loadAllAvailableDriver(location: LatLng) {
+
+
+        mMap.clear()
+
+        mDestinationMarker = mMap.addMarker(MarkerOptions()
+            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+            .position(location)
+            .title("Destino")
+            .snippet(endereco)
+        )
+
+        binding.txtMyAddress.text = endereco
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15.0f))
+
+    }
 
 
     override fun onDestroyView() {
