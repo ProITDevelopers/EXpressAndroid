@@ -123,6 +123,7 @@
         <action android:id="@+id/action_checkoutFragment_to_navigation_carrinho"
             app:destination="@+id/navigation_carrinho"
             app:popUpTo="@+id/navigation_carrinho"
+
             />
 
     </fragment>

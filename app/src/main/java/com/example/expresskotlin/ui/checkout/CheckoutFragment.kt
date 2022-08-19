@@ -5,6 +5,8 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
@@ -16,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.Toolbar
@@ -23,6 +26,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.expresskotlin.R
 import com.example.expresskotlin.databinding.FragmentCheckoutBinding
+import com.example.expresskotlin.helpers.Common
 import com.example.expresskotlin.helpers.MetodosUsados
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -30,6 +34,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import org.greenrobot.eventbus.EventBus
+import java.util.*
 
 
 class CheckoutFragment : Fragment(), OnMapReadyCallback{
@@ -124,10 +129,20 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
         }
         mToolBar.setNavigationOnClickListener {
             val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+            navController.popBackStack(R.id.navigation_mapa, false)
+            navController.popBackStack(R.id.checkoutFragment,false)
             navController.navigateUp()
         }
 
-
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // in here you can do logic when backPress is clicked
+                val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+                navController.popBackStack(R.id.navigation_mapa, false)
+                navController.popBackStack(R.id.checkoutFragment,false)
+                navController.navigateUp()
+            }
+        })
 
         txtTPA= binding.txtTPA
         txtCarteira= binding.txtCarteira
@@ -198,7 +213,10 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
             bundle.putDouble("totalDeTudoPrice", totalDeTudoPrice)
 
             val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+
+//            navController.popBackStack(R.id.checkoutFragment, false)
             navController.navigate(R.id.navigation_mapa, bundle)
+
         }
         txtTPA.setOnClickListener {
             radioBtnTPA.isChecked = true
@@ -331,6 +349,9 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
 
         if (endereco!=null){
             loadAllAvailableDriver(LatLng(latitude!!,longitude!!))
+        }else{
+            if (Common.mLastLocation!=null)
+                loadAllAvailableDriver(LatLng(Common.mLastLocation.latitude,Common.mLastLocation.longitude))
         }
 
     }
@@ -339,6 +360,9 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
 
 
         mMap.clear()
+
+        if (endereco==null)
+            endereco = getMyAddress(location)
 
         mDestinationMarker = mMap.addMarker(MarkerOptions()
             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
@@ -352,6 +376,26 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
 
     }
 
+
+    private fun getMyAddress(location:LatLng) : String {
+        var address =""
+        try {
+            val geo = Geocoder(context, Locale.getDefault())
+            var addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
+            if (addresses.isEmpty()) {
+                Log.d("TAG_Mapa", "Waiting for Location")
+
+            }
+            else {
+                address = addresses.get(0).getAddressLine(0)
+            }
+        }
+        catch (e:Exception) {
+            e.printStackTrace() // getFromLocation() may sometimes fail
+        }
+
+        return address
+    }
 
     override fun onDestroyView() {
         EventBus.getDefault().removeAllStickyEvents()

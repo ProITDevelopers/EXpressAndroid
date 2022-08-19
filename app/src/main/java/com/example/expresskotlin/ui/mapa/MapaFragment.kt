@@ -8,7 +8,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Bitmap
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
@@ -23,8 +25,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.expresskotlin.R
@@ -39,6 +43,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import java.util.*
+
 
 private const val ARG_PARAM1 = "destino"
 
@@ -85,6 +90,9 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
     private var subTotalPrice:Double= 0.0
     private var totalDeTudoPrice:Double= 0.0
 
+    private lateinit var icon_user_marker:Bitmap
+    private lateinit var icon_destination_marker:Bitmap
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -114,6 +122,16 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
     }
 
     private fun initViews() {
+
+//        context?.let {
+//            val user_marker  = AppCompatResources.getDrawable(it,R.drawable.ic_baseline_user_marker_24)
+//            icon_user_marker = (user_marker as BitmapDrawable).bitmap
+//
+//            val destination_marker  = AppCompatResources.getDrawable(it,R.drawable.ic_baseline_destination_marker_24)
+//            icon_destination_marker = (destination_marker as BitmapDrawable).bitmap
+//        }
+
+
 
         //-------------------------------------------------------------//
         //-------------------------------------------------------------//
@@ -214,6 +232,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
 
     }
 
+    @Suppress("DEPRECATION")
     private fun createLocationRequest() {
         mLocationRequest = LocationRequest()
         mLocationRequest.interval = UPDATE_INTERVAL.toLong()
@@ -375,6 +394,8 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                     if (mDestinationMarker!=null)
                         mDestinationMarker?.remove()
 
+//                    val icon_destination_marker: Bitmap = BitmapFactory.decodeResource(requireContext().resources,
+//                        R.drawable.ic_baseline_destination_marker_24)
                     mDestinationMarker = mMap.addMarker(MarkerOptions()
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
                         .position(it)
@@ -457,6 +478,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == Common.PERMISSIONS_REQUEST_ENABLE_GPS){
+            Log.d(TAG, "onActivityResult: requestCode")
             if(mLocationPermissionGranted){
                 getMyLoCation()
             }
@@ -491,7 +513,7 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
 
         if (mDestinationMarkerTitle!=null){
             if (mDestinationMarkerTitle.equals("Destino")){
-                var endereco:String=""
+                val endereco:String
                 if (marker.title.equals("Minha posição")){
                     Log.d(TAG, "onInfoWindowClick: "+marker.title)
 //            Toast.makeText(context, "onInfoWindowClick: "+marker.title, Toast.LENGTH_SHORT).show()
@@ -508,7 +530,9 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
                 bundle.putDouble("subTotalPrice", subTotalPrice)
                 bundle.putDouble("totalDeTudoPrice", totalDeTudoPrice)
                 val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+//                navController.popBackStack(R.id.checkoutFragment, false)
                 navController.navigate(R.id.checkoutFragment, bundle)
+//                navController.clearBackStack(R.id.checkoutFragment)
 
             }
         }
