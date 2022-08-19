@@ -10,7 +10,6 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.location.Address
 import android.location.Geocoder
@@ -25,10 +24,8 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.expresskotlin.R
@@ -343,13 +340,13 @@ class MapaFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnInfoWindowClick
         var address =""
         try {
             val geo = Geocoder(context, Locale.getDefault())
-            var addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
+            val addresses:List<Address> = geo.getFromLocation(location.latitude, location.longitude, 1)
             if (addresses.isEmpty()) {
                 Log.d("TAG_Mapa", "Waiting for Location")
 
             }
             else {
-                address = addresses.get(0).getAddressLine(0)
+                address = addresses[0].getAddressLine(0)
             }
         }
         catch (e:Exception) {
