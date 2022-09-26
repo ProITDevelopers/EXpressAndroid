@@ -350,8 +350,11 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
         if (endereco!=null){
             loadAllAvailableDriver(LatLng(latitude!!,longitude!!))
         }else{
+
             if (Common.mLastLocation!=null)
-                loadAllAvailableDriver(LatLng(Common.mLastLocation.latitude,Common.mLastLocation.longitude))
+                loadAllAvailableDriver(LatLng(Common.mLastLocation!!.latitude,
+                    Common.mLastLocation!!.longitude
+                ))
         }
 
     }
