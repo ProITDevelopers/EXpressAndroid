@@ -134,15 +134,18 @@ class CheckoutFragment : Fragment(), OnMapReadyCallback{
             navController.navigateUp()
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // in here you can do logic when backPress is clicked
-                val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
-                navController.popBackStack(R.id.navigation_mapa, false)
-                navController.popBackStack(R.id.checkoutFragment,false)
-                navController.navigateUp()
-            }
-        })
+//        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                // in here you can do logic when backPress is clicked
+//                try {
+//                    val navController = (activity as AppCompatActivity).findNavController(R.id.nav_host_fragment_activity_main)
+//                    navController.popBackStack(R.id.navigation_mapa, false)
+//                    navController.popBackStack(R.id.checkoutFragment,false)
+//                    navController.navigateUp()
+//                } catch (e: Exception) {
+//                }
+//            }
+//        })
 
         txtTPA= binding.txtTPA
         txtCarteira= binding.txtCarteira
